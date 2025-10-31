@@ -4,6 +4,9 @@
  * @author  lxd
  */
 
+#ifndef ATOMIC_RW_LOCK_H_
+#define ATOMIC_RW_LOCK_H_
+
  #include "rw_lock_guard.h"
  #include <atomic>
  #include <thread>
@@ -94,6 +97,8 @@ inline void AtomicRWLock::ReadUnlock() { lock_num_.fetch_sub(1); }
 
 inline void AtomicRWLock::WriteUnlock() { lock_num_.fetch_add(1); }
 
-}
-}
-}
+} // namespace base
+} // namespace rcmw
+} // namespace hnu
+
+#endif

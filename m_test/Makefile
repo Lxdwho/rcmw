@@ -18,7 +18,8 @@ TARS := $(pastsubst %.cpp, %, $(SRCS))
 ALL:$(TARS)
 %.out : %.cpp
 	$(CC) $(INCLUDE) $(DEBUG) -o $@ $^ \
-	$(ThirdPartyLibPath) $(ThirdPartyLib)
+	$(ThirdPartyLibPath) 
+# $(ThirdPartyLib)
 
 .PHONY: clean
 clean:

@@ -4,6 +4,8 @@
  * @author lxd
  */
 
+ #ifndef _RW_LOCK_GUARD_H_
+ #define _RW_LOCK_GUARD_H_
 
 #include <mutex>
 
@@ -47,3 +49,5 @@ private:
 } // namespace hnu 
 } // namespace rcmw
 } // namespace base
+
+#endif

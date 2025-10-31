@@ -281,8 +281,8 @@ private:
     uint64_t mode_num_;         // 
 };
 
-} // namespace hnu 
-} // namespace rcmw
 } // namespace base
+} // namespace rcmw
+} // namespace hnu
 
 #endif
