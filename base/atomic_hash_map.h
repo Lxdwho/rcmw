@@ -1,7 +1,6 @@
 /**
  * @brief   cmw 原子哈希表仿写
  * @date    2025.10.29
- * @author  lxd
  */
 
 #ifndef RCMW_BASE_ATOMIC_HASH_MAP_H_
@@ -59,7 +58,7 @@ public:
 
     void Set(K key, V &&value) {
         uint64_t index = key & mode_num_;
-        table_[index].Insert(key, std::forward<V>(value));
+        table_[index].Insert(key, std::forward<V>(value)); // 使用forward存在问题，但结果正确
     }
 
 private:

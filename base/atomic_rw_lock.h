@@ -1,7 +1,6 @@
 /**
  * @brief   原子读写锁仿写
  * @date    2025.10.30
- * @author  lxd
  */
 
 #ifndef ATOMIC_RW_LOCK_H_

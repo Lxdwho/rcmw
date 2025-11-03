@@ -1,7 +1,6 @@
 /**
  * @brief  读写锁守卫
  * @date   2025.10.30
- * @author lxd
  */
 
  #ifndef _RW_LOCK_GUARD_H_

@@ -1,7 +1,6 @@
 /**
  * @brief  无界无锁队列
  * @date   2025.10.31
- * @author lxd
  */
 
 #ifndef _UNBOUNDED_QUEUE_H_

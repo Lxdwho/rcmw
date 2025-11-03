@@ -1,7 +1,6 @@
 /**
  * @brief  信号槽机制
  * @date   2025.10.31
- * @author lxd
  */
 
 #ifndef _SIGNAL_H_
