@@ -135,7 +135,7 @@ bool BoundedQueue<T>::WaitEnqueue(const T& element) {
         if(Enqueue(element)) {
             return true;
         }
-        if(wait_strategy_->EmptyWait()) continue;
+        if(wait_strategy_->EmptyWait(break_all_wait_)) continue;
         break;
     }
     return false;
@@ -147,7 +147,7 @@ bool BoundedQueue<T>::WaitEnqueue(T&& element) {
         if(Enqueue(std::move(element))) {
             return true;
         }
-        if(wait_strategy_->EmptyWait()) continue;
+        if(wait_strategy_->EmptyWait(break_all_wait_)) continue;
         break;
     }
     return false;
@@ -173,7 +173,7 @@ bool BoundedQueue<T>::WaitDequeue(T* element) {
     while(!break_all_wait_) {
         if(Dequeue(element))
             return true;
-        if(wait_strategy_->EmptyWait())
+        if(wait_strategy_->EmptyWait(break_all_wait_))
             continue;
         break;
     }

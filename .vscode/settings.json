@@ -51,6 +51,7 @@
         "semaphore": "cpp",
         "stop_token": "cpp",
         "thread": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "future": "cpp"
     }
 }
