@@ -19,7 +19,7 @@
 
 #define CACHELINE_SIZE 64
 
-#define DEFINE_TYPE_TARIT(name, func) \
+#define DEFINE_TYPE_TRAIT(name, func) \
     template <typename T> \
     struct name { \
         template <typename Class> \
