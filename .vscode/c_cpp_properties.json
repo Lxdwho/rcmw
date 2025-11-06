@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "/home/me/cmw_ws/rcmw/",
                 "/home/me/cmw_ws/rcmw/m_test/",
-                "/home/me/cmw_ws/rcmw/base/"
+                "/home/me/cmw_ws/rcmw/base/",
+                "/home/me/googletest/install/include/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",

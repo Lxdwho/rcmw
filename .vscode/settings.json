@@ -52,6 +52,15 @@
         "stop_token": "cpp",
         "thread": "cpp",
         "list": "cpp",
-        "future": "cpp"
+        "future": "cpp",
+        "cstring": "cpp",
+        "any": "cpp",
+        "map": "cpp",
+        "set": "cpp",
+        "optional": "cpp",
+        "span": "cpp",
+        "sstream": "cpp",
+        "cinttypes": "cpp",
+        "variant": "cpp"
     }
 }
