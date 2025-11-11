@@ -9,6 +9,8 @@
 #include "logger.h"
 #include "logstream.h"
 
+using namespace hnu::rcmw::logger;
+
 #define Logger_Init(file_name) Logger::Get_instance()->open(file_name)
 #define ADEBUG 	Logger::Get_instance()->logStream(Logger::LOG_DEBUG,__FILE__, __LINE__)
 #define AINFO 	Logger::Get_instance()->logStream(Logger::LOG_INFO ,__FILE__, __LINE__)
