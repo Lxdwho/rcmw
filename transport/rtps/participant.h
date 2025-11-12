@@ -39,8 +39,9 @@ private:
     eprosima::fastrtps::rtps::RTPSParticipantListener* listener_;
     std::mutex mutex_;
 };
-}
-}
-}
+
+} // transport
+} // rcmw
+} // hnu
 
 #endif
