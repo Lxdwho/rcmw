@@ -24,4 +24,37 @@ using namespace hnu::rcmw::logger;
 #define log_error(format, ...) Logger::Get_instance()->log(Logger::LOG_ERROR, __FILE__, __LINE__, format, ##__VA_ARGS__)
 #define log_fatal(format, ...) Logger::Get_instance()->log(Logger::LOG_FATAL, __FILE__, __LINE__, format, ##__VA_ARGS__)
 
+#if !defined(RETURN_IF_NULL)
+#define RETURN_IF_NULL(ptr)          \
+  if (ptr == nullptr) {              \
+    AWARN << #ptr << " is nullptr."; \
+    return;                          \
+  }
+#endif
+
+
+#if !defined(RETURN_VAL_IF_NULL)
+#define RETURN_VAL_IF_NULL(ptr, val) \
+  if (ptr == nullptr) {              \
+    AWARN << #ptr << " is nullptr."; \
+    return val;                      \
+  }
+#endif
+
+#if !defined(RETURN_IF)
+#define RETURN_IF(condition)           \
+  if (condition) {                     \
+    AWARN << #condition << " is met."; \
+    return;                            \
+  }
+#endif
+
+#if !defined(RETURN_VAL_IF)
+#define RETURN_VAL_IF(condition, val)  \
+  if (condition) {                     \
+    AWARN << #condition << " is met."; \
+    return val;                        \
+  }
+#endif
+
 #endif

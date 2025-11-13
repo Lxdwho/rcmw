@@ -13,6 +13,7 @@ namespace rcmw      {
 namespace transport {
 
 class Block {
+    friend class Segment;
 public:
     Block();
     virtual ~Block();
