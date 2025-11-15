@@ -3,8 +3,8 @@
  * @date  2025.11.03
  */
 
-#ifndef _MACROS_H_
-#define _MACROS_H_
+#ifndef _BASE_MACROS_H_
+#define _BASE_MACROS_H_
 
 #include <new>
 #include <cstdlib>
@@ -19,20 +19,20 @@
 
 #define CACHELINE_SIZE 64
 
-#define DEFINE_TYPE_TRAIT(name, func) \
-    template <typename T> \
-    struct name { \
-        template <typename Class> \
-        static constexpr bool Test(decltype(&Class::func)*) { \
-            return true; \
-        } \
-        template <typename> \
-        static constexpr bool Test(...) { \
-            return false; \
-        } \
-        static constexpr bool value = Test<T>(nullptr); \
-    }; \
-    template <typename T> \
+#define DEFINE_TYPE_TRAIT(name, func)                           \
+    template <typename T>                                       \
+    struct name {                                               \
+        template <typename Class>                               \
+        static constexpr bool Test(decltype(&Class::func)*) {   \
+            return true;                                        \
+        }                                                       \
+        template <typename>                                     \
+        static constexpr bool Test(...) {                       \
+            return false;                                       \
+        }                                                       \
+        static constexpr bool value = Test<T>(nullptr);         \
+    };                                                          \
+    template <typename T>                                       \
     constexpr bool name<T>::value; 
 
 inline void cpu_relax() {
