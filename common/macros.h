@@ -50,6 +50,6 @@ public:                                                                         
     }                                                                                   \
 private:                                                                                \
     classname();                                                                        \
-    DISALLOW_COPY_AND_ASSIGN(classname);
+    DISALLOW_COPY_AND_ASSIGN(classname)
 
 #endif

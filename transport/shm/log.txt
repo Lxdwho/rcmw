@@ -1,0 +1,22 @@
+25-11-16 12:20:48 DEBUG ./condition_notifier.cpp:99 shm already exist, open only.
+25-11-16 12:20:48 DEBUG ./condition_notifier.cpp:150 Open true
+25-11-16 12:20:48 DEBUG ./condition_notifier.cpp:30 next_seq: 0
+25-11-16 12:21:10 DEBUG ./condition_notifier.cpp:99 shm already exist, open only.
+25-11-16 12:21:10 DEBUG ./condition_notifier.cpp:150 Open true
+25-11-16 12:21:10 DEBUG ./condition_notifier.cpp:30 next_seq: 0
+25-11-16 12:25:25 DEBUG ./condition_notifier.cpp:99 shm already exist, open only.
+25-11-16 12:25:25 DEBUG ./condition_notifier.cpp:150 Open true
+25-11-16 12:25:25 DEBUG ./condition_notifier.cpp:30 next_seq: 0
+25-11-16 12:25:37 DEBUG ./condition_notifier.cpp:99 shm already exist, open only.
+25-11-16 12:25:37 DEBUG ./condition_notifier.cpp:150 Open true
+25-11-16 12:25:37 DEBUG ./condition_notifier.cpp:30 next_seq: 0
+25-11-16 12:29:22 DEBUG ./condition_notifier.cpp:99 shm already exist, open only.
+25-11-16 12:29:22 DEBUG ./condition_notifier.cpp:150 Open true
+25-11-16 12:29:22 DEBUG ./condition_notifier.cpp:30 next_seq: 0
+25-11-16 12:29:22 DEBUG ./condition_notifier.cpp:160 remove success.
+25-11-16 12:29:35 DEBUG ./condition_notifier.cpp:125 open or create true.
+25-11-16 12:29:35 DEBUG ./condition_notifier.cpp:30 next_seq: 0
+25-11-16 12:29:35 DEBUG ./condition_notifier.cpp:160 remove success.
+25-11-16 12:29:48 DEBUG ./condition_notifier.cpp:125 open or create true.
+25-11-16 12:29:48 DEBUG ./condition_notifier.cpp:30 next_seq: 0
+25-11-16 12:29:48 DEBUG ./condition_notifier.cpp:160 remove success.

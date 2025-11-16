@@ -19,7 +19,7 @@ ReadableInfo::ReadableInfo(uint64_t host_id, uint32_t block_index, uint64_t chan
 
 ReadableInfo::~ReadableInfo() {}
 
-ReadableInfo& ReadableInfo::operator=(ReadableInfo& other) {
+ReadableInfo& ReadableInfo::operator=(const ReadableInfo& other) {
     if(this != &other) {
         this ->host_id_ = other.host_id_;
         this->block_index_ = other.block_index_;

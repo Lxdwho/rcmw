@@ -26,7 +26,7 @@ public:
     const uint64_t& managed_shm_size() { return managed_shm_size_; }
 
 private:
-    uint64_t GetCeilingMessageSize(const uint64_t& real__msg_size);
+    uint64_t GetCeilingMessageSize(const uint64_t& real_msg_size);
     uint64_t GetBlockBufSize(const uint64_t& ceiling_msg_size);
     uint64_t GetBlockNum(const uint64_t& ceiling_msg_size);
 
