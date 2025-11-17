@@ -25,7 +25,7 @@ typename std::enable_if<!HasShutdown<T>::value>::type CallShutdown(T* instance) 
 #undef UNUSED
 #undef DISALLOW_COPY_AND_ASSIGN
 
-#define UNUSED(param) (void)_PSTL_PRAGMA_MESSAGE
+#define UNUSED(param) (void)param
 
 #define DISALLOW_COPY_AND_ASSIGN(classname)             \
     classname(const classname & ) = delete;             \

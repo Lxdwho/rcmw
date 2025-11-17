@@ -22,7 +22,7 @@ ConditionNotifier::ConditionNotifier() {
     shm_size_ = sizeof(Indicator);
 
     if(!Init()) {
-        AERROR << "failed ti init condition notifier.";
+        AERROR << "failed to init condition notifier.";
         is_shutdown_.store(true);
         return;
     }
