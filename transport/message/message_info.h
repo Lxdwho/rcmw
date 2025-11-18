@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief 消息的信息：包含发送者id、备用ID、通道话题名称以及消息帧号
  * @date 2025.11.12
  */
 
@@ -13,11 +13,6 @@ namespace rcmw      {
 namespace transport {
 
 class MessageInfo {
-private:
-    Identity sender_id_;        // 发送者ID
-    Identity spare_id_;         // 备用ID
-    uint64_t channel_id_ = 0;   // 通道/话题ID？
-    uint64_t seq_num_ = 0;      // 
 public:
     MessageInfo();
     MessageInfo(const Identity& sender_id, uint64_t seq_num);
@@ -50,6 +45,11 @@ public:
     void set_spare_id(const Identity& spaer_id) { spare_id_ = spaer_id; }
 
     static const std::size_t Ksize;
+private:
+    Identity sender_id_;        // 发送者ID
+    Identity spare_id_;         // 备用ID
+    uint64_t channel_id_ = 0;   // 通道/话题ID？
+    uint64_t seq_num_ = 0;      // 消息帧号
 };
 
 }

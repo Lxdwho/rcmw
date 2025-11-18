@@ -42,6 +42,8 @@ public:
     static std::string GetChannelById(uint64_t id);
 
     static uint64_t RegisterChannel(const std::string& channel);
+    
+    static uint64_t RegisterNode(const std::string& node_name);
 
     static uint64_t RegisterTaskName(const std::string& task_name);
     static std::string GetTaskNameById(uint64_t id);
@@ -71,12 +73,10 @@ private:
     //在创建新的channel时会注册进此全局map
     static AtomicHashMap<uint64_t, std::string, 256> channel_id_map_;   //全局 channel_id_map_ 表
     static AtomicHashMap<uint64_t, std::string, 512> node_id_map_;
-    
     static AtomicHashMap<uint64_t, std::string, 256> task_id_map_;
 
     //GlobalData为全局单例
     DECLARE_SINGLETON(GlobalData)
-
 };
 
 } // common
