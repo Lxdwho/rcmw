@@ -48,8 +48,6 @@ public:
     virtual void set_msg_seq(uint64_t msg_seq) { UNUSED(msg_seq); }
     virtual void set_channel_id(uint64_t channel_id) { UNUSED(channel_id); }
     virtual void set_adder(const std::string& adder) { UNUSED(adder); }
-
-
 protected:
     int etype_;
     int eid_;
@@ -75,15 +73,15 @@ public:
 
     static std::string ShowTransPerf(TransPerf type) {
         if     (type == TransPerf::TRANSMIT_BEGIN) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::SERIALIZE     ) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::SEND          ) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::MESSAGE_ARRIVE) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::OBTAIN        ) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::DESERIALIZE   ) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::DISPATCH      ) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::NOTIFY        ) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::FETCH         ) return "TRANSMIT_BEGIN";
-        else if(type == TransPerf::CALLBACK      ) return "TRANSMIT_BEGIN";
+        else if(type == TransPerf::SERIALIZE     ) return "SERIALIZE";
+        else if(type == TransPerf::SEND          ) return "SEND";
+        else if(type == TransPerf::MESSAGE_ARRIVE) return "MESSAGE_ARRIVE";
+        else if(type == TransPerf::OBTAIN        ) return "OBTAIN";
+        else if(type == TransPerf::DESERIALIZE   ) return "DESERIALIZE";
+        else if(type == TransPerf::DISPATCH      ) return "DISPATCH";
+        else if(type == TransPerf::NOTIFY        ) return "NOTIFY";
+        else if(type == TransPerf::FETCH         ) return "FETCH";
+        else if(type == TransPerf::CALLBACK      ) return "CALLBACK";
         return "";
     }
 private:

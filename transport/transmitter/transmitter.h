@@ -70,7 +70,7 @@ bool Transmitter<M>::Transmit(const MessagePtr& msg) {
         attr_.channel_id, msg_info_.seq_num());
     return Transmit(msg, msg_info_);
 }
-    
+
 } // transport
 } // rcmw
 } // hnu

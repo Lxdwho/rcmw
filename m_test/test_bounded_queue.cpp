@@ -66,15 +66,15 @@ int main() {
     //     threads.emplace_back(waitdequeue, i);
     
     for (int i = 0; i < 5; ++i) {
-        threads.emplace_back(waitenque, i);
-        // threads.emplace_back(enqueue, i);
-        threads.emplace_back(waitdequeue, i);
+        // threads.emplace_back(waitenque, i);
+        // threads.emplace_back(waitdequeue, i);
+        threads.emplace_back(enqueue, i);
         // threads.emplace_back(dequeue, i);
     }
 
     for (auto& t : threads)
         t.join();
 
-    std::cout << "Final shared_data = " << que.Size() << std::endl;
+    std::cout << "Final que.Size = " << que.Size() << std::endl;
     return 0;
 }
