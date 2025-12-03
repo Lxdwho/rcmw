@@ -41,6 +41,52 @@ uint64_t channel_id_;   // 发送的通道、话题
 uint64_t host_id_;      // 发送主机ID
 NotifierPtr notifier_;  // 发送notifier
 ```
+`ShmTransmitter`类中，重写了父类的`Enable`函数以及`Disable`函数，其中`Enable`函数被调用时会创建一块共享内存（`Segment`）以及`Nortifier`，并将状态设置为`true`。Disable被调用时则会去将`segment_`以及`notifier_`赋值为空，并设置状态为`false`。
+同时类内提供了`Transmit`函数的实现
+```cpp
+template <typename M>
+bool ShmTransmitter<M>::Transmit(const M& msg, const MessageInfo& msg_info) {
+    if(!this->enabled_) {
+        ADEBUG << "not enable."
+        return false;
+    }
+    WritableBlock wb;
+    // ADEBUG << "Debug Serialize start: " << Time::Now().ToMicrosecond();
+    serialize::DataStream ds;
+    ds << msg;
+    std::size_t msg_size = ds.ByteSize();
+    // ADEBUG << "Debug Serialize end: " << Time::Now().ToMicrosecond();
+    
+    if(!segment_->AcquireBlockToWrite(msg_size, &wb)) {
+        AERROR << "acquire block failed."
+        return false;
+    }
 
+    std::memcpy(wb.buf, ds.data(), msg_size);
+
+    wb.block->set_msg_size(msg_size);
+    char* msg_info_addr = reinterpret_cast<char*>(wb.buf) + msg_size;
+
+    // 拷贝sender_id
+    std::memcpy(msg_info_addr, msg_info.sender_id().data(), ID_SIZE);
+    // 拷贝spare_id
+    std::memcpy(msg_info_addr + ID_SIZE, msg_info.spaer_id().data(), ID_SIZE);
+    // 拷贝seq
+    *reinterpret_cast<uint64_t*>(msg_info_addr + ID_SIZE*2) = msg_info.seq_num();
+
+    wb.block->set_msg_info_size(ID_SIZE*2 + sizeof(uint64_t));
+
+    segment_->ReleaseWrittenBlock(wb);
+
+    ReadableInfo readable_info(host_id_, wb.index, channel_id_);
+    ADEBUG << "Writing shareedmem message: "
+            << common::GlobalData::GetChannelById(channel_id_)
+            << "to block: " << wb.index;
+    return notifier_->Notify(readable_info);
+}
+```
+`Transmit`函数中首先会去判断类本身的状态`enable_`是否为`true`，是则去从`segment`中获取一块可以写的内存，随后依次将要发送的消息、消息的附带信息写入内存块，最后进行写释放。完成消息的写入后创建一个`readable_info`通过`notifire`发送出去。
+
+## 4 RTPSTransmitter
 
 

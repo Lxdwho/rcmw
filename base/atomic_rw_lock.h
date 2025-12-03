@@ -6,13 +6,13 @@
 #ifndef ATOMIC_RW_LOCK_H_
 #define ATOMIC_RW_LOCK_H_
 
- #include "rw_lock_guard.h"
- #include <atomic>
- #include <thread>
+#include "rw_lock_guard.h"
+#include <atomic>
+#include <thread>
 
-namespace hnu {
-namespace rcmw{
-namespace base{
+namespace hnu  {
+namespace rcmw {
+namespace base {
 
 class AtomicRWLock {
     friend class ReadLockGuard<AtomicRWLock>;

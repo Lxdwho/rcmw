@@ -16,7 +16,7 @@ SRCS := $(wildcard *.cpp)
 OUTS := $(pastsubst %.cpp, %.out, $(SRCS))
 TARS := $(pastsubst %.cpp, %, $(SRCS))
 
-ALL:$(TARS)
+ALL:$(OUTS)
 %.out : %.cpp
 	$(CC) $(INCLUDE) $(DEBUG) -o $@ $^ \
 	$(ThirdPartyLibPath) \
