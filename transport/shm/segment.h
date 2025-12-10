@@ -38,7 +38,7 @@ public:
     void ReleaseWrittenBlock(const WritableBlock& writable_block);
 
     bool AcquireBlockToRead(ReadableBlock* readable_block);
-    void ReleaseReadableBlock(const ReadableBlock* readable_block);
+    void ReleaseReadableBlock(const ReadableBlock& readable_block);
 
 protected:
     virtual bool Destory();
