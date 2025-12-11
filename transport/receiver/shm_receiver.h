@@ -31,6 +31,11 @@ private:
     ShmDispatcherPtr dispatcher_;
 };
 
+/**
+ * @brief 构造函数
+ * @param attr: 角色属性
+ * @param msg_listener: 回调函数包装器
+ */
 template<typename M>
 ShmReceiver<M>::ShmReceiver(const RoleAttributes& attr,
             const typename Receiver<M>::MessageListener& msg_listener) :
@@ -41,6 +46,9 @@ ShmReceiver<M>::ShmReceiver(const RoleAttributes& attr,
 template<typename M>
 ShmReceiver<M>::~ShmReceiver() { Disable(); }
 
+/**
+ * @brief 添加Listener
+ */
 template<typename M>
 void ShmReceiver<M>::Enable() {
     if(this->enabled_) return;
@@ -50,6 +58,9 @@ void ShmReceiver<M>::Enable() {
     this->enabled_ = true;
 }
 
+/**
+ * @brief 删除Listener
+ */
 template<typename M>
 void ShmReceiver<M>::Disable() {
     if(!this->enabled_) return;
@@ -57,6 +68,9 @@ void ShmReceiver<M>::Disable() {
     this->enabled_ = false;
 }
 
+/**
+ * @brief 添加Listener，带opposite_attr
+ */
 template<typename M>
 void ShmReceiver<M>::Enable(const RoleAttributes& opposite_attr) {
     dispatcher_->AddListener<M>(this->attr, opposite_attr, 
@@ -64,6 +78,9 @@ void ShmReceiver<M>::Enable(const RoleAttributes& opposite_attr) {
         this, std::placeholders::_1, std::placeholders::_2));
 }
 
+/**
+ * @brief 删除Listener，带opposite_attr
+ */
 template<typename M>
 void ShmReceiver<M>::Disable(const RoleAttributes& opposite_attr) {
     dispatcher_->RemoveListener<M>(this->attr_, opposite_attr);

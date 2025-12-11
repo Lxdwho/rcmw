@@ -46,7 +46,6 @@ void Receiver<M>::OnNewMessage(const MessagePtr& msg, const MessageInfo& msg_inf
     if(msg_listener_ != nullptr) msg_listener_(msg, msg_info, attr_);
 }
 
-
 } // transport
 } // rcmw
 } // hnu
