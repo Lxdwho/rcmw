@@ -1,27 +1,43 @@
-CC			:= 	g++
-CFLAGS		:= 	-std=c++14
-DEBUG		:= 	-g
-INCLUDE		:= 	-I/home/me/cmw_ws/rcmw/			\
-            	-I/home/me/cmw_ws/rcmw/m_test/	\
-                -I/home/me/cmw_ws/rcmw/base/    \
-                -I/home/me/googletest/install/include/
+# 编译器和选项
+CC      := g++
+CFLAGS  := -std=c++14 
+DEBUG   := -g 
+INCLUDE := -I/home/me/Fast-DDS/install/include \
+           -I/home/me/googletest/install/include \
+           -I../../ \
+           -I../thirdparty/
 
-ThirdPartyLibPath :=	-L/home/me/Fast-DDS/install/lib \
-						-L/home/me/googletest/install/lib
+ThirdPartyLibPath := -L/home/me/Fast-DDS/install/lib \
+                     -L/home/me/googletest/install/lib
 
-ThirdPartyLib	:= 	-lgtest -lgtest_main -lpthread -latomic \
-					-lfastrtps -lfastcdr -lfoonathan_memory-0.7.3
+ThirdPartyLib := -lfastrtps -lfastcdr -lfoonathan_memory-0.7.3 \
+                 -lpthread -luuid -lrt -latomic -lgtest -ldl
 
-SRCS := $(wildcard *.cpp)
-OUTS := $(pastsubst %.cpp, %.out, $(SRCS))
-TARS := $(pastsubst %.cpp, %, $(SRCS))
+# 可执行文件列表
+EXECUTABLES := test_writer test_reader test_serialize test_node_manager \
+              test_channel_manager test_topology_manager test_publisher \
+              test_subscriber test_log test_getenv test_croutine test_scheduler \
+              test_task test_blocker test_class_loader test_node \
+              test_publisher_subscriber \
 
-ALL:$(OUTS)
-%.out : %.cpp
-	$(CC) $(INCLUDE) $(DEBUG) -o $@ $^ \
-	$(ThirdPartyLibPath) \
-	$(ThirdPartyLib)
 
+# 找出源文件
+SRCS := $(shell find ../* -type f | grep '\.cpp' | grep -v './test.*\.cpp')
+ASMS := $(shell find ../* -type f | grep '\.S')
+OBJS := $(patsubst %.cpp, %.o, $(SRCS)) $(patsubst %.S, %.o, $(ASMS))
+
+# 编译规则
+%.o: %.cpp
+	$(CC) $(INCLUDE) $(CFLAGS) $(DEBUG) -c -o $@ $<
+
+%.o: %.S
+	$(AS) -c $< -o $@
+
+# 生成可执行文件的规则
+$(EXECUTABLES): %: $(OBJS) %.cpp
+	$(CC) $(INCLUDE) $(DEBUG) -o $@.out $^ $(ThirdPartyLibPath) $(ThirdPartyLib)
+
+# 清理规则
 .PHONY: clean
 clean:
-	rm -rf *.out *.o $(TARS)
+	rm -rf *.out *.log $(OBJS)

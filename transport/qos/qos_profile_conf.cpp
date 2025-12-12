@@ -27,7 +27,7 @@ QosProfile QosProfileConf::CreateQosProfile(const QosHistoryPolicy& history,
     return qos_profile;
 }
 
-const uint32_t QosProfileConf::QOS_HISTROY_DEPTH_SYSTEM_DEFAULT = 0;
+const uint32_t QosProfileConf::QOS_HISTORY_DEPTH_SYSTEM_DEFAULT = 0;
 const uint32_t QosProfileConf::QOS_MPS_SYSTEM_DEFAULT = 0;
 
 /* 默认Qos策略 */
@@ -78,7 +78,7 @@ const QosProfile QosProfileConf::QOS_PROFILE_PARAM_EVENT = QosProfileConf::Creat
 /* 系统默认策略 */
 const QosProfile QosProfileConf::QOS_PROFILE_SYSTEM_DEFAULT = QosProfileConf::CreateQosProfile(
     QosHistoryPolicy::HISTORY_SYSTEM_DEFAULT, 
-    QosProfileConf::QOS_HISTROY_DEPTH_SYSTEM_DEFAULT,
+    QosProfileConf::QOS_HISTORY_DEPTH_SYSTEM_DEFAULT,
     QOS_MPS_SYSTEM_DEFAULT, 
     QosReliabilityPolicy::RELIABILITY_RELIABLE, 
     QosDurabilityPolicy::DURABILITY_TRANSIENT_LOCAL

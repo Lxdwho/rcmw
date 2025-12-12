@@ -6,7 +6,7 @@
 #ifndef _SERIALIZEABLE_H_
 #define _SERIALIZEABLE_H_
 
-#include "data_stream.h"
+// #include "data_stream.h"
 
 namespace hnu		{
 namespace rcmw		{

@@ -84,7 +84,7 @@ bool AttributesFiller::FillInWriterAttr(const std::string& channel_name,
     }
 
     /* 控制历史缓存深度 */
-    if(qos.depth != QosProfileConf::QOS_HISTROY_DEPTH_SYSTEM_DEFAULT) {
+    if(qos.depth != QosProfileConf::QOS_HISTORY_DEPTH_SYSTEM_DEFAULT) {
         writer_attr->tatt.historyQos.depth = static_cast<int32_t>(qos.depth);
     }
     if(writer_attr->tatt.historyQos.depth < 0) return false;
@@ -136,7 +136,7 @@ bool AttributesFiller::FillInReaderAttr(const std::string& channel_name,
         break;
     }
 
-    if(qos.depth != QosProfileConf::QOS_HISTROY_DEPTH_SYSTEM_DEFAULT) {
+    if(qos.depth != QosProfileConf::QOS_HISTORY_DEPTH_SYSTEM_DEFAULT) {
         reader_attr->tatt.historyQos.depth = static_cast<int32_t>(qos.depth);
     }
 

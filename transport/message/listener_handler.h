@@ -83,12 +83,12 @@ void ListenerHandler<M>::Connect(uint64_t self_id, const Listener& Listener) {
 template<typename M>
 void ListenerHandler<M>::Connect(uint64_t self_id, uint64_t oppo_id, const Listener& Listener) {
     WriteLockGuard<AtomicRWLock> lock(rw_lock_);
-    if(signals_.find(oppo_id) == signal_.end())
+    if(signals_.find(oppo_id) == signals_.end())
         signals_[oppo_id] = std::make_shared<MessageSignal>();
     auto connection = signals_[oppo_id]->Connect(Listener);
     if(!connection.IsConnected())
         ADEBUG << oppo_id << " " << self_id << " connect failed!";
-    if(signal_conns_.find(oppo_id) == signals_.end())
+    if(signals_conns_.find(oppo_id) == signals_conns_.end())
         signals_conns_[oppo_id] = ConnectionMap();
     signals_conns_[oppo_id][self_id] = connection;
 }

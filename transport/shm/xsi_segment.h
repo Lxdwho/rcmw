@@ -7,6 +7,7 @@
 #define _XSI_SEGMENT_H_
 
 #include "segment.h"
+#include <sys/types.h>
 
 namespace hnu       {
 namespace rcmw      {

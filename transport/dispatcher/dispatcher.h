@@ -75,7 +75,7 @@ void Dispatcher::AddListener(const RoleAttributes& self_attr,
         if(handler == nullptr) {
             AERROR << "please ensure that readers with the same channel["
                    << self_attr.channel_name
-                   << "] in the same process have the same message type."
+                   << "] in the same process have the same message type.";
             return;
         }
     }
@@ -100,7 +100,7 @@ void Dispatcher::AddListener(const RoleAttributes& self_attr,
         if(handler == nullptr) {
             AERROR << "please ensure that readers with the same channel["
                    << self_attr.channel_name
-                   << "] in the same process have the same message type."
+                   << "] in the same process have the same message type.";
             return;
         }
     }
@@ -109,7 +109,7 @@ void Dispatcher::AddListener(const RoleAttributes& self_attr,
         handler.reset(new ListenerHandler<M>());
         msg_listeners_.Set(channel_id, handler);
     }
-    handler->Connect(self_attr, opposite_attr, listener);
+    handler->Connect(self_attr.id, opposite_attr.id, listener);
 }
 
 template<typename M>

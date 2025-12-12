@@ -51,7 +51,7 @@ private:
 
 template<typename M>
 auto Transport::CreateTransmitter(const RoleAttributes& attr,
-                        const OptionalMode& mode = OptionalMode::RTPS)->
+                        const OptionalMode& mode)->
                         typename std::shared_ptr<Transmitter<M>> {
     if(is_shutdown_.load()) {
         AINFO << "transitter has been shutdown.";
@@ -65,7 +65,7 @@ auto Transport::CreateTransmitter(const RoleAttributes& attr,
             transmitter = std::make_shared<ShmTransmitter<M>>(modified_attr);
             break;
         default:
-            transmitter = std::make_shared<RtpsTransmitter<m>>(modified_attr, participant());
+            transmitter = std::make_shared<RtpsTransmitter<M>>(modified_attr, participant());
             break;
     }
 
@@ -81,7 +81,7 @@ auto Transport::CreateTransmitter(const RoleAttributes& attr,
 template<typename M>
 auto Transport::CreateReceiver(const RoleAttributes& attr,
                     const typename Receiver<M>::MessageListener& msg_listener,
-                    const OptionalMode& mode = OptionalMode::RTPS)->
+                    const OptionalMode& mode)->
                     typename std::shared_ptr<Receiver<M>> {
     if(is_shutdown_.load()) {
         AINFO << "transitter has been shutdown.";

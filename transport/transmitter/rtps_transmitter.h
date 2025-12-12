@@ -44,9 +44,9 @@ private:
 template<typename M>
 RtpsTransmitter<M>::RtpsTransmitter(const RoleAttributes& attr, 
                 const ParticipantPtr& participent) :
-    : Transmitter<M>(attr), 
-      participant_(participent), 
-      rtps_write(nullptr) { }
+    Transmitter<M>(attr), 
+    participant_(participent), 
+    rtps_write(nullptr) {}
 
 template<typename M>
 RtpsTransmitter<M>::~RtpsTransmitter() {
@@ -55,29 +55,31 @@ RtpsTransmitter<M>::~RtpsTransmitter() {
 
 template<typename M>
 void RtpsTransmitter<M>::Enable() {
-    if(enabled_) return;
+    if(this->enabled_) return;
     /* 创建 RTPSWrite 配置信息实例 */
     RtpsWriterAttributes writer_attr;
     /* 填充RtpsWrite */
-    AttributesFiller::FillInWriterAttr(this->attr_.channel_name
-        this->attr_.qos_profile, *writer_attr);
+    AttributesFiller::FillInWriterAttr(this->attr_.channel_name,
+        this->attr_.qos_profile, &writer_attr);
     /* 创建Rtps WriterHistory */
     mp_history = new WriterHistory(writer_attr.hatt);
 
     /* 创建rtps write */
     rtps_write = RTPSDomain::createRTPSWriter(
         participant_->fastrtps_participant(), 
-        writer_attr.tatt, mp_history);
+        writer_attr.watt, mp_history);
     
     /* 注册rtps write */
+    ADEBUG << "I'm OK!";
     bool reg = participant_->fastrtps_participant()->registerWriter(
         rtps_write, writer_attr.tatt, writer_attr.wqos);
+    ADEBUG << "I'm OK1!";
     if(reg) this->enabled_ = true;
 }
 
 template<typename M>
 void RtpsTransmitter<M>::Disable() {
-    if(this->enabled) {
+    if(this->enabled_) {
         rtps_write = nullptr;
         this->enabled_ = false;
     }
@@ -103,7 +105,7 @@ bool RtpsTransmitter<M>::Transmit(const M& msg,
 
     eprosima::fastrtps::rtps::WriteParams wparams;
     char* ptr = reinterpret_cast<char*>
-                (&wparams.related_sample_identity().writer_guid_());
+                (&wparams.related_sample_identity().writer_guid());
     memcpy(ptr, msg_info.sender_id().data(), ID_SIZE);
     memcpy(ptr + ID_SIZE, msg_info.spaer_id().data(), ID_SIZE);
 

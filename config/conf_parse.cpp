@@ -28,6 +28,7 @@ bool GetRcmwConfFromFile(const std::string& file_path, RcmwConfig* config) {
     json j;
     file >> j;
     *config = j.get<RcmwConfig>();
+    return true;
 }
 
 // from_json 函数定义

@@ -21,8 +21,8 @@ PerfEventCache::PerfEventCache() {
 }
 
 void PerfEventCache::AddTransportEvent(const TransPerf event_id, const uint64_t channel_id, 
-                    const uint64_t msg_seq, const uint64_t stamp = 0, 
-                    const std::string& adder = "-") {
+                    const uint64_t msg_seq, const uint64_t stamp, 
+                    const std::string& adder) {
     /* 此处enable_一直没有启用，后续需要从配置文件中加载 */
     if(!enable_) return;
     EventBasePtr e = std::make_shared<TransportEvent>();

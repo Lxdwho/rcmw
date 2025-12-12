@@ -60,7 +60,7 @@ const char* Logger::s_level[LOG_COUNT] = {
 
 // 日志执行函数
 void Logger::log(Level level, const char* file, int line, const char* format, ...) {
-	if (log_level < level) return;
+	if (log_level > level) return;
 	if (m_fout.fail()) return;
 
 	time_t ticks = time(NULL);

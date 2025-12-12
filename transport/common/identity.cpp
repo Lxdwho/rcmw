@@ -15,7 +15,7 @@ void Identity::Update() {
     hash_value_ = common::Hash(std::string(data_, ID_SIZE));
 }
 
-Identity::Identity(bool need_generate = true) : hash_value_(0) {
+Identity::Identity(bool need_generate) : hash_value_(0) {
     std::memset(data_, 0, ID_SIZE);
     if(need_generate) {
         uuid_t uuid;

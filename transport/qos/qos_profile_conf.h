@@ -22,7 +22,7 @@ public:
                                     uint32_t depth, uint32_t mps, 
                                     const QosReliabilityPolicy& reliability,
                                     const QosDurabilityPolicy& durability);
-    static const uint32_t QOS_HISTROY_DEPTH_SYSTEM_DEFAULT;
+    static const uint32_t QOS_HISTORY_DEPTH_SYSTEM_DEFAULT;
     static const uint32_t QOS_MPS_SYSTEM_DEFAULT;
 
     static const QosProfile QOS_PROFILE_DEFAULT;

@@ -51,7 +51,7 @@ bool Segment::AcquireBlockToWrite(std::size_t msg_size, WritableBlock* writable_
     uint32_t index = GetNextWritableBlockIndex();
     writable_block->index = index;
     writable_block->block = &blocks_[index];
-    writable_block->buf - block_buf_addrs_[index];
+    writable_block->buf = block_buf_addrs_[index];
     return true;
 }
 

@@ -43,7 +43,7 @@ template<typename M>
 void RtpsReceiver<M>::Enable() {
     if(this->enabled_) return;
     dispatcher_->AddListener<M>(
-        this->attr, std::bind(&RtpsReceiver<M>::OnNewMessage, this,
+        this->attr_, std::bind(&RtpsReceiver<M>::OnNewMessage, this,
             std::placeholders::_1, std::placeholders::_2)
     );
     this->enabled_ = true;
@@ -52,14 +52,14 @@ void RtpsReceiver<M>::Enable() {
 template<typename M>
 void RtpsReceiver<M>::Disable() {
     if(!this->enabled_) return;
-    dispatcher_->RemoveListener(this->attr);
+    dispatcher_->RemoveListener<M>(this->attr_);
     this->enabled_ = false;
 }
 
 template<typename M>
 void RtpsReceiver<M>::Enable(const RoleAttributes& opposite_attr) {
     dispatcher_->AddListener<M>(
-        this->attr, opposite_attr, 
+        this->attr_, opposite_attr, 
         std::bind(&RtpsReceiver<M>::OnNewMessage, this,
             std::placeholders::_1, std::placeholders::_2)
     );
@@ -67,7 +67,7 @@ void RtpsReceiver<M>::Enable(const RoleAttributes& opposite_attr) {
 
 template<typename M>
 void RtpsReceiver<M>::Disable(const RoleAttributes& opposite_attr) {
-    dispatcher_->RemoveListener(this->attr, opposite_attr);
+    dispatcher_->RemoveListener<M>(this->attr_, opposite_attr);
 }
 
 } // transport

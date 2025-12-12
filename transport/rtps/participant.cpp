@@ -17,10 +17,11 @@ using namespace eprosima::fastrtps;
 using namespace eprosima::fastrtps::rtps;
 
 Participant::Participant(const std::string& name, int send_port, 
-        eprosima::fastrtps::rtps::RTPSParticipantListener* listener = nullptr)
+        eprosima::fastrtps::rtps::RTPSParticipantListener* listener)
       : shutdown_(false), 
         name_(name), 
         send_port_(send_port), 
+        listener_(listener),
         fastrtps_participant_(nullptr) {}
 
 Participant::~Participant() {}
@@ -51,7 +52,6 @@ void Participant::CreateFastRtpsParticipant(
         const std::string& name, int send_port, 
         eprosima::fastrtps::rtps::RTPSParticipantListener* listener) {
     uint32_t domain_id = 0;
-
     RTPSParticipantAttributes PParam;
     PParam.builtin.use_WriterLivelinessProtocol = true;
     PParam.builtin.discovery_config.use_SIMPLE_EndpointDiscoveryProtocol = true;

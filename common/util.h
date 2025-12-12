@@ -3,8 +3,11 @@
  * @date 2025.11.12
  */
 
-#ifndef _UTIL_H_
-#define _UTIL_H_
+#ifndef _COMMON_UTIL_H_
+#define _COMMON_UTIL_H_
+
+#include <string>
+#include <functional>
 
 namespace hnu    {
 namespace rcmw   {

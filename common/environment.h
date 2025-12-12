@@ -21,8 +21,9 @@ inline std::string GetEnv(const std::string& var_name,
     if(var == nullptr) {
         AWARN << "Environment variable [" << var_name 
                 << "] not set, fallback to " << default_value;
-        return std::string(var);
+        return default_value;
     }
+    return std::string(var);
 }
 
 /* 设置工作空间路径 */

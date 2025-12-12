@@ -11,6 +11,7 @@
 #include "rcmw/transport/shm/notifier_factory.h"
 #include "rcmw/transport/common/endpoint.h"
 #include "rcmw/logger/log.h"
+#include "rcmw/time/time.h"
 #include <cstring>
 
 namespace hnu       {
@@ -82,7 +83,7 @@ void ShmTransmitter<M>::Disable() {
     if(this->enabled_) {
         segment_ = nullptr;
         notifier_ = nullptr;
-        this->enabled = false;
+        this->enabled_ = false;
     }
 }
 
@@ -106,18 +107,18 @@ bool ShmTransmitter<M>::Transmit(const MessagePtr& msg, const MessageInfo& info)
 template <typename M>
 bool ShmTransmitter<M>::Transmit(const M& msg, const MessageInfo& msg_info) {
     if(!this->enabled_) {
-        ADEBUG << "not enable."
+        ADEBUG << "not enable.";
         return false;
     }
     WritableBlock wb;
-    // ADEBUG << "Debug Serialize start: " << Time::Now().ToMicrosecond();
+    // ADEBUG << "Debug Serialize start: " << Time::Now().Tomicrosecond();
     serialize::DataStream ds;
     ds << msg;
     std::size_t msg_size = ds.ByteSize();
-    // ADEBUG << "Debug Serialize end: " << Time::Now().ToMicrosecond();
+    // ADEBUG << "Debug Serialize end: " << Time::Now().Tomicrosecond();
     
     if(!segment_->AcquireBlockToWrite(msg_size, &wb)) {
-        AERROR << "acquire block failed."
+        AERROR << "acquire block failed.";
         return false;
     }
 
@@ -136,11 +137,10 @@ bool ShmTransmitter<M>::Transmit(const M& msg, const MessageInfo& msg_info) {
     wb.block->set_msg_info_size(ID_SIZE*2 + sizeof(uint64_t));
 
     segment_->ReleaseWrittenBlock(wb);
-
     ReadableInfo readable_info(host_id_, wb.index, channel_id_);
     ADEBUG << "Writing shareedmem message: "
             << common::GlobalData::GetChannelById(channel_id_)
-            << "to block: " << wb.index;
+            << " to block: " << wb.index;
     return notifier_->Notify(readable_info);
 }
 

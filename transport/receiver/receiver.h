@@ -36,7 +36,7 @@ protected:
 
 template<typename M>
 Receiver<M>::Receiver(const RoleAttributes& attr, const MessageListener& msg_listener):
-    Endpoint(attr), msg_listener(msg_listener) {}
+    Endpoint(attr), msg_listener_(msg_listener) {}
 
 template<typename M>
 Receiver<M>::~Receiver() {}
