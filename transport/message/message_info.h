@@ -39,7 +39,7 @@ public:
     void set_channel_id(uint64_t channel_id) { channel_id_ = channel_id; }
 
     uint64_t seq_num() const { return seq_num_; }
-    void set_seq_num(uint64_t seq_num) {  }
+    void set_seq_num(uint64_t seq_num) { seq_num_ = seq_num; }
 
     const Identity& spaer_id() const { return spare_id_; }
     void set_spare_id(const Identity& spaer_id) { spare_id_ = spaer_id; }

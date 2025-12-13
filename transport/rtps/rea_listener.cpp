@@ -3,7 +3,7 @@
  * @date 2025.11.12
  */
 
-#include "rea_listener.h"
+#include "rcmw/transport/rtps/rea_listener.h"
 #include "rcmw/common/util.h"
 using GUID_t = eprosima::fastrtps::rtps::GUID_t;
 
@@ -30,10 +30,11 @@ void ReaListener::onNewCacheChangeAdded(eprosima::fastrtps::rtps::RTPSReader* re
     msg_info_.set_sender_id(sender_id);
 
     Identity spare_id(false);
-    spare_id.set_data(ptr);
+    spare_id.set_data(ptr + ID_SIZE);
     msg_info_.set_spare_id(spare_id);
 
-    uint64_t seq_num = ((uint64_t)change->sequenceNumber.high << 32) | change->sequenceNumber.low;
+    uint64_t seq_num = ((int64_t)change->sequenceNumber.high << 32) | change->sequenceNumber.low;
+    // ADEBUG << seq_num << "=========================";
     msg_info_.set_seq_num(seq_num);
 
     std::shared_ptr<std::string> msg_str = 

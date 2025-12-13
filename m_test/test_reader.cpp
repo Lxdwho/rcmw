@@ -5,6 +5,7 @@
 #include "rcmw/transport/receiver/receiver.h"
 #include "rcmw/transport/tranport.h"
 #include "rcmw/config/topology_change.h"
+#include "rcmw/logger/log.h"
 
 
 using namespace hnu::rcmw::transport;
@@ -36,10 +37,12 @@ void TEST_ChangeMsg()
     auto listener1 = [](const std::shared_ptr<ChangeMsg>& message ,
                        const MessageInfo& info, const RoleAttributes&){
                         
-                        std::cout<<"time: " << message->timestamp << "operate_type:"  << message->operate_type << "seq:" << info.seq_num() << std::endl;
+                        std::cout<<"time: " << message->timestamp << 
+                        " operate_type:"  << message->operate_type << 
+                        " seq:" << info.seq_num() << std::endl;
                         
                        };
-    auto rtps1 =Transport::Instance()->CreateReceiver<ChangeMsg>(attr,listener1);
+    auto rtps1 =Transport::Instance()->CreateReceiver<ChangeMsg>(attr,listener1, OptionalMode::SHM);
     printf("Press Enter to stop the Reader.\n");
     std::cin.ignore();
 }   
@@ -47,6 +50,7 @@ void TEST_ChangeMsg()
 int main()
 {
     Logger_Init("reader.log");
+    AERROR << "test";
     // Logger::Instance()->level(Logger::LOG_INFO);
     TEST_GLOBAL_DATA();
     TEST_ChangeMsg();

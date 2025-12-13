@@ -45,7 +45,7 @@ private:
 	Logger() // = default; 
 	{
 		// open("logt.txt");
-		level(LOG_FATAL);
+		level(LOG_DEBUG);
 		Set_console(true);
 	}
 	Logger(const Logger& log) = default;

@@ -84,7 +84,7 @@ auto Transport::CreateReceiver(const RoleAttributes& attr,
                     const OptionalMode& mode)->
                     typename std::shared_ptr<Receiver<M>> {
     if(is_shutdown_.load()) {
-        AINFO << "transitter has been shutdown.";
+        AINFO << "transmitter has been shutdown.";
         return nullptr;
     }
 
@@ -92,7 +92,7 @@ auto Transport::CreateReceiver(const RoleAttributes& attr,
     RoleAttributes modified_attr = attr;
     ADEBUG << "receive mode: " << mode;
     switch(mode){
-        case OptionalMode::RTPS:
+        case  OptionalMode::SHM:
             receiver = std::make_shared<ShmReceiver<M>>(modified_attr, msg_listener);
             break;
         default:

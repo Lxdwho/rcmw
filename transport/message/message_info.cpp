@@ -25,7 +25,7 @@ MessageInfo::MessageInfo(const Identity& sender_id,
 
 MessageInfo::MessageInfo(const MessageInfo& other) :
     sender_id_(other.sender_id_), channel_id_(other.channel_id_),
-    seq_num_(seq_num_), spare_id_(other.channel_id_) {}
+    seq_num_(other.seq_num_), spare_id_(other.spare_id_) {}
 
 MessageInfo::~MessageInfo() {}
 
@@ -54,7 +54,7 @@ bool MessageInfo::operator!=(const MessageInfo& other) {
 /* 序列化操作 */
 bool MessageInfo::SerializeTo(std::string* dst) const {
     if(dst == nullptr) return false;
-    dst->append(sender_id_.data(), ID_SIZE);
+    dst->assign(sender_id_.data(), ID_SIZE);
     dst->append(reinterpret_cast<const char*>(seq_num_), sizeof(seq_num_));
     dst->append(spare_id_.data(), ID_SIZE);
     return true;
