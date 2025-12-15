@@ -237,7 +237,7 @@ void DataStream::write(const std::set<T>& value) {
     }
 }
 
-template<typename T, typename = std::enable_if_t<std::is_enum<T>::value>>
+template<typename T, typename> // = std::enable_if_t<std::is_enum<T>::value>>
 void DataStream::write(const T& value) {
     write(static_cast<int32_t>(value));
 }
@@ -314,7 +314,7 @@ bool DataStream::read(std::set<T>& value) {
     return true;
 }
 
-template<typename T, typename = std::enable_if_t<std::is_enum<T>::value>>
+template<typename T, typename> // = std::enable_if_t<std::is_enum<T>::value>>
 bool DataStream::read(T& value) {
     int32_t& intValue = reinterpret_cast<int32_t&>(value);
     return read(intValue);
