@@ -1,0 +1,8 @@
+*.o
+*.out
+*.a
+*.so
+*.so.*
+*.dylib
+*.dll
+*.log
