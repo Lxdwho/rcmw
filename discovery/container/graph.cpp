@@ -186,10 +186,72 @@ void Graph::InsertCompleteEdge(const Edge& e) {
     list_[src_v_k][e.GetKey()] = e.dst();
 }
 
-void Graph::DeleteOutgoingEdge(const Edge& e) {}
-void Graph::DeleteIncomingEdge(const Edge& e) {}
-void Graph::DeleteCompliteEdge(const Edge& e) {}
-bool Graph::LevelTraverse(const Vertice& start, const Vertice& end) {}
+void Graph::DeleteOutgoingEdge(const Edge& e) {
+    auto& e_v = e.value();
+    auto& src_v_set = edges_[e_v].src;
+    auto& src_v = e.src();
+    auto& v_k = src_v.GetKey();
+    
+    if(src_v_set.find(v_k) == src_v_set.end()) return;
+    src_v_set.erase(v_k);
+
+    auto& dst_v_set = edges_[e_v].dst;
+    Edge delete_e;
+    delete_e.set_src(src_v);
+    delete_e.set_value(e.value());
+    for(auto& item : dst_v_set) {
+        delete_e.set_dst(item.second);
+        DeleteCompliteEdge(delete_e);
+    }
+}
+
+void Graph::DeleteIncomingEdge(const Edge& e) {
+    auto& e_v = e.value();
+    auto& dst_v_set = edges_[e_v].dst;
+    auto& dst_v = e.dst();
+    auto& v_k = dst_v.GetKey();
+    
+    if(dst_v_set.find(v_k) == dst_v_set.end()) return;
+    dst_v_set.erase(v_k);
+
+    auto& src_v_set = edges_[e_v].src;
+    Edge delete_e;
+    delete_e.set_dst(dst_v);
+    delete_e.set_value(e.value());
+    for(auto& item : src_v_set) {
+        delete_e.set_src(item.second);
+        DeleteCompliteEdge(delete_e);
+    }
+}
+
+void Graph::DeleteCompliteEdge(const Edge& e) {
+    auto& src_v_k = e.src().GetKey();
+    list_[src_v_k].erase(e.GetKey());
+}
+
+bool Graph::LevelTraverse(const Vertice& start, const Vertice& end) {
+    std::unordered_map<std::string, bool> visited;
+    visited[end.GetKey()] = false;
+
+    std::queue<Vertice> unvisited;
+    unvisited.emplace(start);
+    
+    while (!unvisited.empty())
+    {
+        auto curr = unvisited.front();
+        unvisited.pop();
+        
+        if(visited[curr.GetKey()]) continue;
+        visited[curr.GetKey()] = true;
+
+        if(curr == end) break;;
+
+        for(auto& item : list_[curr.GetKey()]) {
+            unvisited.push(item.second);
+        }
+    }
+    return visited[end.GetKey()];
+}
 
 } // discovery
 } // rcmw
