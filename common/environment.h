@@ -16,7 +16,7 @@ namespace common {
 
 /* 获取环境变量 */
 inline std::string GetEnv(const std::string& var_name, 
-                        const std::string& default_value = "") {
+                        const std::string& default_value = " \"\" ") {
     const char* var = std::getenv(var_name.c_str());
     if(var == nullptr) {
         AWARN << "Environment variable [" << var_name 

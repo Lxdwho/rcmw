@@ -10,6 +10,7 @@
 #include <list>
 #include <functional>
 #include <memory>
+#include <algorithm>
 
 namespace hnu  {
 namespace rcmw {

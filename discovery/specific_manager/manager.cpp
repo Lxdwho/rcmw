@@ -9,6 +9,7 @@
 #include "rcmw/transport/rtps/attributes_filler.h"
 #include "rcmw/transport/qos/qos_profile_conf.h"
 #include "rcmw/transport/rtps/participant.h"
+#include "rcmw/time/time.h"
 
 
 namespace hnu       {
@@ -108,10 +109,6 @@ void Manager::RemoveChangeListener(const ChangeConnection& conn) {
     local_conn.Disconnect();
 }
 
-void Manager::OnTopoModuleLeave(const std::string& host_name, int process_id) {
-
-}
-
 bool Manager::CreateWriter(RtpsParticipant* participant) {
     RtpsWriterAttributes writer_attr;
     AttributesFiller::FillInWriterAttr(channel_name_, 
@@ -138,14 +135,78 @@ bool Manager::CreateReader(RtpsParticipant* participant) {
     return ret;
 }
 
-bool Manager::Check(const RoleAttributes& attr) {}
-void Manager::Dispose(const ChangeMsg& msg) {}
-bool Manager::NeedPublish(const ChangeMsg& msg) const {}
-void Manager::Notify(const ChangeMsg& msg) {}
-bool Manager::Write(const ChangeMsg& msg) {}
-void Manager::OnRemoteChange(const std::string& msg_str) {}
-bool Manager::IsFromSameProcess(const ChangeMsg& msg) {}
-void Manager::Convert(const RoleAttributes& attr, RoleType role, OperateType opt, ChangeMsg* msg) {}
+bool Manager::NeedPublish(const ChangeMsg& msg) const {
+    (void)msg;
+    return true;
+}
+
+void Manager::Notify(const ChangeMsg& msg) { signal_(msg); }
+
+bool Manager::Write(const ChangeMsg& msg) {
+    if(!is_discovery_started_.load()) {
+        ADEBUG << "discovery is not started.";
+        return false;
+    }
+
+    serialize::DataStream ds;
+    ds << msg;
+
+    { 
+        std::lock_guard<std::mutex> lock(mutex_);
+        if(writer_ != nullptr) {
+            CacheChange_t* ch = writer_->new_change([]()->uint32_t {
+                return 255;
+            }, ALIVE);
+            ch->serializedPayload.length = ds.size();
+            std::memcpy((char*)ch->serializedPayload.data, ds.data(), ds.size());
+            bool flag = writer_history_->add_change(ch);
+            if(!flag) {
+                writer_->remove_older_changes(20);
+                writer_history_->add_change(ch);
+            }
+        }
+    }
+    return true;
+}
+
+void Manager::OnRemoteChange(const std::string& msg_str) {
+    if(is_shutdown_.load()) {
+        ADEBUG << "the maneger has been shutdown.";
+        return;
+    }
+    
+    ChangeMsg msg;
+    serialize::DataStream ds(msg_str);
+    ds >> msg;
+
+    if(IsFromSameProcess(msg)) {
+        ADEBUG << "FromSameProcess";
+        return;
+    }
+    RETURN_IF(!Check(msg.role_attr));
+    Dispose(msg);
+}
+
+bool Manager::IsFromSameProcess(const ChangeMsg& msg) {
+    auto& host_name = msg.role_attr.host_name;
+    int process_id = msg.role_attr.process_id;
+    if(process_id != process_id_ || host_name != host_name_) return false;
+    return true;
+}
+
+void Manager::Convert(const RoleAttributes& attr, RoleType role, 
+                        OperateType opt, ChangeMsg* msg) {
+    msg->timestamp = rcmw::Time::Now().ToNanosecond();
+    msg->change_type = change_type_;
+    msg->operate_type = opt;
+    msg->role_type = role;
+    msg->role_attr = attr;
+
+    if(msg->role_attr.host_name.empty())
+        msg->role_attr.host_name = host_name_;
+    if(!msg->role_attr.process_id)
+        msg->role_attr.process_id = process_id_;
+}
 
 } // discovery
 } // rcmw

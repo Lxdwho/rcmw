@@ -24,7 +24,7 @@ public:
     MutilValueWarehouse() {}
     virtual ~MutilValueWarehouse() {}
 
-    bool Add(uint64_t key, const RolePtr& role, bool ignore_if_exist) override;
+    bool Add(uint64_t key, const RolePtr& role, bool ignore_if_exist = true) override;
 
     void Clear() override;
     std::size_t Size() override;

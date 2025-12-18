@@ -11,7 +11,7 @@ namespace discovery {
 
 RoleBase::RoleBase() : timestamp_ns_(0) {}
 
-RoleBase::RoleBase(const RoleAttributes& attr,  uint64_t timestamp_ns = 0)
+RoleBase::RoleBase(const RoleAttributes& attr,  uint64_t timestamp_ns)
         : attributes_(attr), timestamp_ns_(timestamp_ns) {}
 
 bool RoleBase::Match(const RoleAttributes& target_attr) const {
@@ -25,7 +25,7 @@ bool RoleBase::IsEarlierThan(const RoleBase& other) const {
     return timestamp_ns_ < other.timestamp_ns();
 }
 
-RoleWriter::RoleWriter(const RoleAttributes& attr, uint64_t timestamp_ns = 0)
+RoleWriter::RoleWriter(const RoleAttributes& attr, uint64_t timestamp_ns)
         : RoleBase(attr, timestamp_ns) {}
 
 bool RoleWriter::Match(const RoleAttributes& target_attr) const {
