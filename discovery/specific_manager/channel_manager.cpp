@@ -1,5 +1,5 @@
 /**
- * @brief 话题拓扑管理
+ * @brief 话题拓扑管理，基于Multi_value_warehouse，对拓扑中的reader以及writer进行维护，同时维护拓扑图
  * @date 2025.12.18
  */
 
@@ -87,7 +87,7 @@ void ChannelManager::GetDownStreamOfnode(const std::string& node_name,
     for(auto& writer : writers) channels.emplace(writer.channel_name);
 
     RoleAttrVec readers;
-    for(auto& channel : channels) GetWritersOfChannel(channel, &readers);
+    for(auto& channel : channels) GetReadersOfChannel(channel, &readers);
 
     std::unordered_map<std::string, RoleAttributes> nodes;
     for(auto& reader : readers) {

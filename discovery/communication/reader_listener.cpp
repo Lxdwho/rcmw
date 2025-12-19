@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief reader数据接收回调包装
  * @date 2025.12.16
  */
 

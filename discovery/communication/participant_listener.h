@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief participant回调包装
  * @date 2025.12.16
  */
 

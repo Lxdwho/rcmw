@@ -41,3 +41,7 @@ $(EXECUTABLES): %: $(OBJS) %.cpp
 .PHONY: clean
 clean:
 	rm -rf *.out *.log $(OBJS)
+
+.PHONY: cleanout
+cleanout:
+	rm -rf *.out *.log

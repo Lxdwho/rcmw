@@ -3,8 +3,8 @@
  * @date 2025.12.18
  */
 
-#ifndef _DISCOVERY_NODE_MANEGER_H_
-#define _DISCOVERY_NODE_MANEGER_H_
+#ifndef _DISCOVERY_NODE_MANAGER_H_
+#define _DISCOVERY_NODE_MANAGER_H_
 
 #include "rcmw/discovery/specific_manager/manager.h"
 #include "rcmw/discovery/container/single_value_warehouse.h"

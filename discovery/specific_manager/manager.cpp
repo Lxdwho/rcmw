@@ -54,17 +54,26 @@ void Manager::StopDiscovery() {
 
     {
         std::lock_guard<std::mutex> lock(mutex_);
-        if(writer_ != nullptr)  // 不防止出现野指针？
+        if(writer_ != nullptr) {
             eprosima::fastrtps::rtps::RTPSDomain::removeRTPSWriter(writer_);
+            writer_ = nullptr;
+        }
     }
 
-    if(reader_ != nullptr)  // 不防止出现野指针？
+    if(reader_ != nullptr) {
         eprosima::fastrtps::rtps::RTPSDomain::removeRTPSReader(reader_);
+        reader_ = nullptr;
+    }
 
     if(listener_ != nullptr) {
         delete listener_;
         listener_ = nullptr;
     }
+
+    // if(writer_history_ != nullptr) {
+    //     delete writer_history_;
+    //     writer_history_ = nullptr;
+    // }
 }
 
 bool Manager::Join(const RoleAttributes& attr, RoleType role, bool need_write) {
@@ -171,7 +180,7 @@ bool Manager::Write(const ChangeMsg& msg) {
 
 void Manager::OnRemoteChange(const std::string& msg_str) {
     if(is_shutdown_.load()) {
-        ADEBUG << "the maneger has been shutdown.";
+        ADEBUG << "the manager has been shutdown.";
         return;
     }
     

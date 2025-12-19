@@ -3,8 +3,8 @@
  * @date 2025.12.18
  */
 
-#ifndef _DISCOVERY_CHANNEL_MANEGER_H_
-#define _DISCOVERY_CHANNEL_MANEGER_H_
+#ifndef _DISCOVERY_CHANNEL_MANAGER_H_
+#define _DISCOVERY_CHANNEL_MANAGER_H_
 
 #include "rcmw/discovery/specific_manager/manager.h"
 #include "rcmw/discovery/container/graph.h"
