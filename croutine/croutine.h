@@ -30,8 +30,8 @@ public:
     explicit CRoutine(const RoutineFuc& func);
     virtual ~CRoutine();
 
-    static void Yiled();
-    static void Yiled(const RoutineState& state);
+    static void Yield();
+    static void Yield(const RoutineState& state);
     static void SetMainContext(const std::shared_ptr<RoutineContext>& context);
     static CRoutine* GetCurrentRoutine();
     static char **GetMainStack();
@@ -99,13 +99,13 @@ private:
     static thread_local char* main_stack_;
 };
 
-inline void CRoutine::Yiled(const RoutineState& state) {
+inline void CRoutine::Yield(const RoutineState& state) {
     auto routine = GetCurrentRoutine();
     routine->set_state(state);
     SwapContext(GetCurrentRoutine()->GetStack(), GetMainStack());
 }
 
-inline void CRoutine::Yiled() {
+inline void CRoutine::Yield() {
     SwapContext(GetCurrentRoutine()->GetStack(), GetMainStack());
 }
 
@@ -128,7 +128,7 @@ inline void CRoutine::Wake() { state_ = RoutineState::READY; }
 inline void CRoutine::HangUp() { state_ = RoutineState::DATA_WAIT; }
 inline void CRoutine::Sleep(const Duration& sleep_duration) {
     wake_time_ = std::chrono::steady_clock::now() + sleep_duration;
-    CRoutine::Yiled(RoutineState::SLEEP);
+    CRoutine::Yield(RoutineState::SLEEP);
 }
 
 inline uint64_t CRoutine::id() const { return id_; }

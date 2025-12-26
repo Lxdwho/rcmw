@@ -40,7 +40,7 @@ typedef void(*func)(void*);
 struct RoutineContext {
     char stack[STACK_SIZE];
     char* sp = nullptr;
-#if define __aarch64__
+#if defined __aarch64__
 } __attribute__((aligned(16)));
 #else
 };

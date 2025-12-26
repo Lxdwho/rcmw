@@ -99,8 +99,8 @@ TEST(ChannelBufferTest, FetchMulti) {
 }
 
 // int main() {
-//   TEST(ChannelBufferTest, Fetch);
-//   TEST(ChannelBufferTest, Latest);
+//   ::testing::TEST(ChannelBufferTest, Fetch);
+//   ::testing::TEST(ChannelBufferTest, Latest);
 
 // }
 

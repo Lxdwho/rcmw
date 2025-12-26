@@ -22,7 +22,7 @@ namespace {
     void CRoutineEntry(void* arg) {
         CRoutine *r = static_cast<CRoutine*>(arg);
         r->Run();
-        CRoutine::Yiled(RoutineState::FINISHED);
+        CRoutine::Yield(RoutineState::FINISHED);
     }
 }
 
