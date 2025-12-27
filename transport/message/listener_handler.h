@@ -11,7 +11,7 @@
 #include <string>
 #include <memory>
 #include "rcmw/logger/log.h"
-#include "rcmw/base/signal.h"
+#include "rcmw/base/signal_slot.h"
 #include "rcmw/base/atomic_rw_lock.h"
 #include "rcmw/serialize/data_stream.h"
 #include "rcmw/transport/message/message_info.h"

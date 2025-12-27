@@ -18,16 +18,16 @@ namespace hnu   {
 namespace rcmw  {
 namespace data  {
 
-class DataVistorBase {
+class DataVisitorBase {
 public:
-    DataVistorBase() : notifier_(new Notifier()) {}
+    DataVisitorBase() : notifier_(new Notifier()) {}
 
     void RegisterNotifyCallback(std::function<void()>&& callback) {
         notifier_->callback = std::move(callback);
     }
 protected:
-    DataVistorBase(const DataVistorBase& other) = delete;
-    DataVistorBase& operator=(const DataVistorBase& other) = delete;
+    DataVisitorBase(const DataVisitorBase& other) = delete;
+    DataVisitorBase& operator=(const DataVisitorBase& other) = delete;
     uint64_t next_msg_index_ = 0;
     DataNotifier* data_notifier_ = DataNotifier::Instance();
     std::shared_ptr<Notifier> notifier_;

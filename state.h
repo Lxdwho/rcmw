@@ -6,11 +6,10 @@
 #ifndef _RCMW_STATE_H_
 #define _RCMW_STATE_H_
 
+#include <unistd.h>
+#include <csignal>
 #include <cstdint>
 #include <thread>
-#include <chrono>
-#include <csignal>
-#include <unistd.h>
 #include "rcmw/logger/log.h"
 
 namespace hnu   {
@@ -41,7 +40,7 @@ inline void WaitForShutdown() {
 
 inline void AsyncShutdown() {
     pid_t pid = getpid();
-    if(::kill(pid, SIGINT) != 0) {
+    if(kill(pid, SIGINT) != 0) {
         AERROR << strerror(errno);
     }
 }

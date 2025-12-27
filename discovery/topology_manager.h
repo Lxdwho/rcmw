@@ -8,7 +8,7 @@
 
 #include "rcmw/discovery/specific_manager/channel_manager.h"
 #include "rcmw/discovery/specific_manager/node_manager.h"
-#include "rcmw/base/signal.h"
+#include "rcmw/base/signal_slot.h"
 #include "rcmw/config/topology_change.h"
 #include "rcmw/transport/rtps/participant.h"
 #include "rcmw/discovery/communication/participant_listener.h"

@@ -3,8 +3,8 @@
  * @date   2025.10.31
  */
 
-#ifndef _SIGNAL_H_
-#define _SIGNAL_H_
+#ifndef _RCMW_SIGNAL_H_
+#define _RCMW_SIGNAL_H_
 
 #include <mutex>
 #include <list>

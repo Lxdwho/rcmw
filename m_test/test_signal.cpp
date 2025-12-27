@@ -1,5 +1,5 @@
 #include <iostream>
-#include "../base/signal.h"
+#include "../base/signal_slot.h"
 
 using namespace hnu::rcmw::base;
 

@@ -10,7 +10,7 @@
 #include <functional>
 #include <mutex>
 #include <string>
-#include "rcmw/base/signal.h"
+#include "rcmw/base/signal_slot.h"
 #include "rcmw/config/topology_change.h"
 #include "rcmw/discovery/communication/reader_listener.h"
 #include "fastrtps/rtps/reader/RTPSReader.h"

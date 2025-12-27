@@ -1,4 +1,13 @@
 {
+    "C_Cpp.default.compilerPath": "/usr/bin/g++",
+    "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
+    "C_Cpp.default.cppStandard": "c++17",
+    "C_Cpp.default.cStandard": "c11",
+    "C_Cpp.default.includePath": [
+        "/usr/include",
+        "/usr/local/include",
+        "${workspaceFolder}/include"
+        ],
     "files.associations": {
         "atomic": "cpp",
         "cctype": "cpp",
@@ -75,6 +84,7 @@
         "regex": "cpp",
         "ranges": "cpp",
         "shared_mutex": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "*.h": "cpp"
     }
 }
