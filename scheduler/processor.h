@@ -23,6 +23,9 @@ namespace scheduler {
 
 using croutine::CRoutine;
 
+/**
+ * @brief 协程快照：包含执行开始时间、id以及名称
+ */
 struct Snapshot
 {
     std::atomic<uint64_t> execute_start_time = { 0 };
@@ -30,6 +33,9 @@ struct Snapshot
     std::string routine_name;
 };
 
+/**
+ * @brief 执行单位
+ */
 class Processor {
 public:
     virtual ~Processor();
@@ -45,10 +51,11 @@ public:
 protected:
     std::shared_ptr<ProcessorContext> context_;
 
-    std::condition_variable cv_ctx_;
     std::once_flag thread_flag_;
-    std::mutex ctx_mutex_;
     std::thread thread_;
+
+    std::condition_variable cv_ctx_;
+    std::mutex ctx_mutex_;
 
     std::atomic<pid_t> tid_{-1};
     std::atomic<bool> running_{false};

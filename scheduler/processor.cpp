@@ -20,7 +20,7 @@ namespace scheduler {
 
 using hnu::rcmw::common::GlobalData;
 
-Processor::Processor() { running_.store(false); }
+Processor::Processor() { running_.store(true); }
 
 Processor::~Processor() { Stop(); }
 

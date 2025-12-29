@@ -26,11 +26,7 @@ namespace {
     }
 }
 
-/**
- * @brief 构造函数：使用call_once实现了单例，并从对象池中取出一个协程上下文
- * @param func 协程执行函数
- */
-CRoutine::CRoutine(const std::function<void()> &func) : func_(func) {
+CRoutine::CRoutine(const RoutineFuc &func) : func_(func) {
     std::call_once(pool_init_flag, [&]{
         uint32_t routine_num = common::GlobalData::Instance()->ComponentNums();
         auto &global_conf = common::GlobalData::Instance()->Config();

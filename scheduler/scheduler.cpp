@@ -33,13 +33,16 @@ bool Scheduler::CreateTask(std::function<void()>&& func, const std::string& name
 
     auto task_id = GlobalData::RegisterTaskName(name);
 
+    /* 创建协程 */
     auto cr = std::make_shared<CRoutine>(func);
     cr->set_id(task_id);
     cr->set_name(name);
     AINFO << "create croutine: " << name;
 
+    /* 这是啥？ */
     if(!DispatchTask(cr)) return false;
 
+    /* 这是啥？ */
     if(visitor != nullptr) {
         visitor->RegisterNotifyCallback([this, task_id]() {
             if(cyber_unlikely(stop_.load())) return;
@@ -85,9 +88,11 @@ void Scheduler::ProcessLevelResourceControl() {
 
 void Scheduler::SetInnerThreadAttr(const std::string& name, std::thread* thr) {
     if(thr != nullptr && inner_thr_confs_.find(name) != inner_thr_confs_.end()) {
+        /* 拿到配置 */
         auto th_conf = inner_thr_confs_[name];
         auto cpuset = th_conf.cpuset;
 
+        /* 解析并设置CPU亲和性与策略 */
         std::vector<int> cpus;
         ParseCpuset(cpuset, &cpus);
         SetSchedAffinity(thr, cpus, "range");

@@ -18,6 +18,9 @@ namespace scheduler {
 
 using croutine::CRoutine;
 
+/**
+ * @brief 执行单位上下文
+ */
 class ProcessorContext {
 public:
     virtual void Shutdown();

@@ -44,28 +44,67 @@ public:
     virtual ~Scheduler() {};
     static Scheduler* Instance();
 
+    /**
+     * @brief 创建协程
+     * @param factory 协程工厂
+     * @param name 协程名称
+     */
     bool CreateTask(const RoutineFactory& factory, const std::string& name);
+
+    /**
+     * @brief 创建协程
+     * @param func 协程执行体
+     * @param name 协程名称
+     * @param visitor 协程对应的数据访问者？
+     */
     bool CreateTask(std::function<void()>&& func, const std::string& name, 
                     std::shared_ptr<DataVisitorBase> visitor = nullptr);
+
+    /**
+     * @brief 通知任务
+     * @param crid 协程id
+     */
     bool NotifyTask(uint64_t crid);
 
+    /**
+     * @brief 停止调度，释放资源
+     */
     void Shutdown();
-    
-    uint32_t TaskPoolSize() { return task_pool_size_; }
-    virtual bool RemoveTask(const std::string& name) = 0;
 
+    /**
+     * @brief 资源等级控制
+     * @param crid 协程id
+     */
     void ProcessLevelResourceControl();
+
+    /**
+     * @brief 线程属性设置
+     * @param name 线程名称
+     * @param thr 被设置线程
+     */
     void SetInnerThreadAttr(const std::string& name, std::thread* thr);
 
-    virtual bool DispatchTask(const std::shared_ptr<CRoutine>& cr) = 0;
-    virtual bool NotifyProcessor(uint64_t crid) = 0;
-    virtual bool RemoveCRoutine(uint64_t crid) = 0;
-
+    /**
+     * @brief 检查调度状态并输出到日志
+     */
     void CheckSchedStatus();
 
+    /**
+     * @brief 设置线程配置变量inner_thr_confs_
+     */   
     void SetInnerThreadConfs(const std::unordered_map<std::string, InnerThread>& confs) {
         inner_thr_confs_ = confs;
     }
+
+    /**
+     * @brief 获取任务池大小
+     */   
+    uint32_t TaskPoolSize() { return task_pool_size_; }
+    
+    virtual bool RemoveTask(const std::string& name) = 0;
+    virtual bool DispatchTask(const std::shared_ptr<CRoutine>& cr) = 0;
+    virtual bool NotifyProcessor(uint64_t crid) = 0;
+    virtual bool RemoveCRoutine(uint64_t crid) = 0;
 
 protected:
     Scheduler() : stop_(false) {}
