@@ -25,7 +25,7 @@ bool Scheduler::CreateTask(const RoutineFactory& factory, const std::string& nam
 }
 
 bool Scheduler::CreateTask(std::function<void()>&& func, const std::string& name, 
-                std::shared_ptr<DataVisitorBase> visitor = nullptr) {
+                std::shared_ptr<DataVisitorBase> visitor) {
     if(cyber_unlikely(stop_.load())) {
         ADEBUG << "scheduler is stoped, cannot create task!";
         return false;

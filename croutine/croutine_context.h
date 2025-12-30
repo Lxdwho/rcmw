@@ -48,17 +48,17 @@ struct RoutineContext {
 
 /**
  * @brief 协程上下文构建
- * @param func:协程执行体
- * @param arg :协程执行传入参数
- * @param ctx :协程上下文结构体
+ * @param func 协程执行体
+ * @param arg  协程执行传入参数
+ * @param ctx  协程上下文结构体
  * @return void
  */
 void MakeContext(const func& f1, const void* arg, RoutineContext* ctx);
 
 /**
  * @brief 协程上下文切换
- * @param src_sp:当前sp指针
- * @param dest_sp:切换的协程的sp指针
+ * @param src_sp 当前sp指针
+ * @param dest_sp 切换的协程的sp指针
  * @return void
  */
 inline void SwapContext(char** src_sp, char** dest_sp) {

@@ -39,6 +39,7 @@ public:
         buffer_m0_.Buffer()->SetFusionCallback([this](const std::shared_ptr<M0> m0){
             std::shared_ptr<M1> m1;
             std::shared_ptr<M2> m2;
+            std::shared_ptr<M2> m3;
             if(!buffer_m1_.Latest(m1) || !buffer_m2_.Latest(m2) || !buffer_m3_.Latest(m3)) {
                 return;
             }
@@ -51,7 +52,7 @@ public:
     bool Fusion(uint64_t* index, std::shared_ptr<M0>& m0, std::shared_ptr<M1>& m1, 
                 std::shared_ptr<M2>& m2, std::shared_ptr<M3>& m3) override {
         std::shared_ptr<FusionDataType> fusion_data;
-        if(!buffer_fusion_.Fetch(index, fusion_data)) return;
+        if(!buffer_fusion_.Fetch(index, fusion_data)) return false;
         m0 = std::get<0>(*fusion_data);
         m1 = std::get<1>(*fusion_data);
         m2 = std::get<2>(*fusion_data);
@@ -96,7 +97,7 @@ public:
     bool Fusion(uint64_t* index, std::shared_ptr<M0>& m0, std::shared_ptr<M1>& m1, 
                 std::shared_ptr<M2>& m2) override {
         std::shared_ptr<FusionDataType> fusion_data;
-        if(!buffer_fusion_.Fetch(index, fusion_data)) return;
+        if(!buffer_fusion_.Fetch(index, fusion_data)) return false;
         m0 = std::get<0>(*fusion_data);
         m1 = std::get<1>(*fusion_data);
         m2 = std::get<2>(*fusion_data);
@@ -114,7 +115,7 @@ private:
  */
 template <typename M0, typename M1>
 class AllLatest<M0, M1, NullType, NullType> : public DataFusion<M0, M1> {
-    using FusionDataType = std::tuple<std::shared_ptr<M0>, std::shared_ptr<M1>;
+    using FusionDataType = std::tuple<std::shared_ptr<M0>, std::shared_ptr<M1>>;
 public:
     AllLatest(const ChannelBuffer<M0>& buffer_0, const ChannelBuffer<M1>& buffer_1) : 
               buffer_m0_(buffer_0), buffer_m1_(buffer_1),
@@ -134,7 +135,7 @@ public:
     
     bool Fusion(uint64_t* index, std::shared_ptr<M0>& m0, std::shared_ptr<M1>& m1) override {
         std::shared_ptr<FusionDataType> fusion_data;
-        if(!buffer_fusion_.Fetch(index, fusion_data)) return;
+        if(!buffer_fusion_.Fetch(index, fusion_data)) return false;
         m0 = std::get<0>(*fusion_data);
         m1 = std::get<1>(*fusion_data);
         return true;

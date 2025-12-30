@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief 抽象CPU类
  * @date 2025.12.27
  */
 

@@ -44,31 +44,10 @@ public:
     ClassicContext();
     explicit ClassicContext(const std::string& group_name);
 
-    /**
-     * @brief 按照优先级寻找到一个就绪态的协程，进行返回
-     * @return nullptr 没找到就绪态协程
-     */
     std::shared_ptr<CRoutine> NextRoutine() override;
-
-    /**
-     * @brief 等待信号量，对notify_grp_进行操作
-     */
     void Wait() override;
-
-    /**
-     * @brief 唤醒所有线程，置stop_为true
-     */
     void Shutdown() override;
-
-    /**
-     * @brief 唤醒一个线程
-     */
     static void Notify(const std::string& group_name);
-    
-    /**
-     * @brief 删除一个协程
-     * @return true 删除成功，false 未找到该协程
-     */
     static bool RemoveCRoutine(const std::shared_ptr<CRoutine>& cr);
 
     alignas(CACHELINE_SIZE) static CR_GROUP cr_group_;

@@ -1,5 +1,5 @@
 /**
- * @brief 
+ * @brief 抽象的CPU上下文基类
  * @date 2025.12.27
  */
 
@@ -19,7 +19,7 @@ namespace scheduler {
 using croutine::CRoutine;
 
 /**
- * @brief 执行单位上下文
+ * @brief 抽象的CPU上下文基类
  */
 class ProcessorContext {
 public:

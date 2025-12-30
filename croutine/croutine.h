@@ -28,7 +28,7 @@ enum class RoutineState { READY, FINISHED, SLEEP, IO_WAIT, DATA_WAIT };
 class CRoutine {
 public:
     /**
-     * @brief 构造函数：使用call_once实现了单例，并从对象池中取出一个协程上下文
+     * @brief 构造函数：使用call_once实现了单例对象池，并从对象池中取出一个协程上下文
      * @param func 协程执行函数
      */
     explicit CRoutine(const RoutineFuc& func);
@@ -46,15 +46,18 @@ public:
     static void Yield(const RoutineState& state);
 
     /**
-     * @brief 获取获取主栈
+     * @brief 设置主栈
      */
-
     static void SetMainContext(const std::shared_ptr<RoutineContext>& context);
+
     /**
      * @brief 获取当前协程
      */
     static CRoutine* GetCurrentRoutine();
 
+    /**
+     * @brief 获取主栈指针
+     */
     static char **GetMainStack();
 
     /**
@@ -127,6 +130,11 @@ public:
      */
     void set_state(const RoutineState& state);
 
+    /**
+     * @brief 获取协程wake_time_
+     */
+    std::chrono::steady_clock::time_point wake_time() const;
+
     uint64_t id() const;
     void set_id(uint64_t id);
 
@@ -138,11 +146,6 @@ public:
 
     uint32_t priority() const;
     void set_priority(uint32_t priority);
-
-    /**
-     * @brief 获取协程wake_time_
-     */
-    std::chrono::steady_clock::time_point wake_time() const;
 
     void set_group_name(const std::string& group_name) { group_name_  = group_name; }
     const std::string& group_name() { return group_name_; }

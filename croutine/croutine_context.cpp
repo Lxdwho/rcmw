@@ -9,30 +9,23 @@ namespace hnu       {
 namespace rcmw      {
 namespace croutine  {
 
-/*
-低地址（栈向下生长方向 ← ）
-├─ ctx->stack  (缓冲区起始)
-│
-│     STACK ELSE     ← 运行时栈真正向下扩展的区域
-│   (Reserved)       ← 预留但尚未使用
-│
-├─ ctx->sp  ──→  指向这里
-│   +------------------+
-│   |       RBP        |  56 B  寄存器快照（跳板）
-│   +------------------+  ↑
-│   |       ...        |  │
-│   +------------------+  │  ← 只被 pop 一次，不再生长
-│   |       R12        |  │
-│   +------------------+  │
-│   |       R13        |  │
-│   +------------------+  │
-│   |       RDI        |  │  ← popq %rdi 时载入 arg
-│   +------------------+  │
-│   |  Return Address  |  │  ← ret 时跳入 f1
-│   +------------------+  ↓
-│
-└─ 缓冲区末尾 (高地址)
-*/
+//  The stack layout looks as follows:
+//
+//              +------------------+
+//              |      Reserved    |
+//              +------------------+
+//              |  Return Address  |   f1
+//              +------------------+
+//              |        RDI       |   arg
+//              +------------------+
+//              |        R12       |
+//              +------------------+
+//              |        R13       |
+//              +------------------+
+//              |        ...       |
+//              +------------------+
+// ctx->sp  =>  |        RBP       |
+//              +------------------+
 
 void MakeContext(const func & f1, const void * arg, RoutineContext * ctx) {
     ctx->sp = ctx->stack + STACK_SIZE - 2 * sizeof(void*) - REGISTERS_SIZE;

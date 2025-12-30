@@ -19,6 +19,10 @@ thread_local char* CRoutine::main_stack_ = nullptr;
 namespace {
     std::shared_ptr<base::CCObjectPool<RoutineContext>> context_pool = nullptr;
     std::once_flag pool_init_flag;
+    /**
+     * @brief 协程执行实体
+     * @param arg 传入协程本身
+     */
     void CRoutineEntry(void* arg) {
         CRoutine *r = static_cast<CRoutine*>(arg);
         r->Run();
@@ -27,6 +31,7 @@ namespace {
 }
 
 CRoutine::CRoutine(const RoutineFuc &func) : func_(func) {
+    /* 实例化协程上下文对象池 */
     std::call_once(pool_init_flag, [&]{
         uint32_t routine_num = common::GlobalData::Instance()->ComponentNums();
         auto &global_conf = common::GlobalData::Instance()->Config();
@@ -36,6 +41,7 @@ CRoutine::CRoutine(const RoutineFuc &func) : func_(func) {
         context_pool.reset(new base::CCObjectPool<RoutineContext>(routine_num));
     });
 
+    /* 取一个上下文，为nullptr则实例化 */
     context_ = context_pool->GetObject();
     if(context_ == nullptr) {
         AWARN << "Maximum routine context number exceeded! Please check \
@@ -43,6 +49,7 @@ CRoutine::CRoutine(const RoutineFuc &func) : func_(func) {
         context_.reset(new RoutineContext());
     }
 
+    /* 初始化上下文 */
     MakeContext(CRoutineEntry, this, context_.get());
     state_ = RoutineState::READY;
     updated_.test_and_set(std::memory_order_relaxed);
@@ -60,7 +67,7 @@ RoutineState CRoutine::Resume() {
         AERROR << "Invalid Routine State!";
         return state_;
     }
-
+    /* 执行协程，换栈，回归 */
     current_routine_ = this;
     SwapContext(GetMainStack(), GetStack());
     current_routine_ = nullptr;

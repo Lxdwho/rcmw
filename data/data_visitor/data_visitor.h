@@ -152,9 +152,9 @@ template<typename M0>
 class DataVisitor<M0, NullType, NullType, NullType> : public DataVisitorBase {
 public:
     explicit DataVisitor(const std::vector<VisitorConfig>& config) :
-                buffer_m0_(config[0].channel_id, new BufferType<M0>(config[0].queue_size)) {
-        DataDispatcher<M0>::Instance()->AddBuffer(buffer_m0_);
-        data_notifier_->AddNotifier(buffer_m0_.channel_id(), notifier_);
+                buffer_(config[0].channel_id, new BufferType<M0>(config[0].queue_size)) {
+        DataDispatcher<M0>::Instance()->AddBuffer(buffer_);
+        data_notifier_->AddNotifier(buffer_.channel_id(), notifier_);
     }
 
     DataVisitor(uint64_t channel_id, uint32_t queue_size):
@@ -163,7 +163,7 @@ public:
         data_notifier_->AddNotifier(buffer_.channel_id(), notifier_);
     }
 
-    bool TryFetch(std::shared_ptr<M0>& m0, std::shared_ptr<M1>& m1) {
+    bool TryFetch(std::shared_ptr<M0>& m0) {
         if(buffer_->Fetch(&next_msg_index_, m0)) {
             next_msg_index_++;
             return true;

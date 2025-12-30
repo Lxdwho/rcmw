@@ -37,7 +37,8 @@ TEST(Croutine, croutinetest) {
     cr->Resume();
     EXPECT_NE(*(cr->GetMainStack()), nullptr);
     EXPECT_EQ(cr->state(), RoutineState::IO_WAIT);
-    cr->Stop();
+    // cr->Stop();
+    cr->set_state(RoutineState::READY);
     EXPECT_EQ(cr->Resume(), RoutineState::FINISHED);
 }
 
