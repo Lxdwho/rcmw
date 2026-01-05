@@ -154,10 +154,10 @@ bool SchedulerClassic::DispatchTask(const std::shared_ptr<CRoutine>& cr) {
             rq_locks_[cr->group_name()].at(cr->priority()));
         ClassicContext::cr_group_[cr->group_name()]
             .at(cr->priority()).emplace_back(cr);
-        ADEBUG << "Add " << cr->group_name() << " to" 
-               << "ClassicContext::cr_group_[" << cr->group_name() 
-               << "].at(" << cr->priority() << ").emplace_back("
-               << cr << ")";
+        // ADEBUG << "Add " << cr->group_name() << " to" 
+        //        << "ClassicContext::cr_group_[" << cr->group_name() 
+        //        << "].at(" << cr->priority() << ").emplace_back("
+        //        << cr << ")";
     }
 
     /* 唤醒对应协程组别中的一个协程 */

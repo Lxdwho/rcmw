@@ -115,6 +115,7 @@ bool ClassicContext::RemoveCRoutine(const std::shared_ptr<CRoutine>& cr) {
                 std::this_thread::sleep_for(std::chrono::microseconds(1));
                 AINFO << "waitting for task " << cr->name() << " completion.";
             }
+            AINFO << "task " << cr->name() << " completion.";
             croutines.erase(it);
             cr->Release();
             return true;

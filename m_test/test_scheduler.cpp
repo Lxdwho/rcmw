@@ -83,7 +83,7 @@ TEST(test_creat_classic, classic) {
 int main(int argc, char** argv) {
     std::string logfile_name = "test_scheduler.log";
     Logger_Init(logfile_name);
-    Logger::Get_instance()->Set_console(true);
+    Logger::Get_instance()->Set_console(false);
     auto global_data = common::GlobalData::Instance();
 
     ::testing::InitGoogleTest(&argc, argv);
