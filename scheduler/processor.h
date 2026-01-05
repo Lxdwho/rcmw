@@ -24,7 +24,7 @@ namespace scheduler {
 using croutine::CRoutine;
 
 /**
- * @brief 协程快照：包含执行开始时间、id以及名称
+ * @brief 抽象CPU快照：包含执行开始时间、id以及当前协程名称
  */
 struct Snapshot
 {
@@ -34,7 +34,7 @@ struct Snapshot
 };
 
 /**
- * @brief 执行单位
+ * @brief 抽象CPU类
  */
 class Processor {
 public:

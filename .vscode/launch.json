@@ -5,7 +5,7 @@
             "name": "Build and debug rcmw",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/m_test/test_croutine.out",
+            "program": "${workspaceFolder}/m_test/test_scheduler.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/",

@@ -44,11 +44,14 @@ std::shared_ptr<CRoutine> ClassicContext::NextRoutine() {
     for(int i=MAX_PRIO-1; i>=0; --i) {
         /* 对group中的优先级i队列进行上锁 */
         ReadLockGuard<AtomicRWLock> lock(lq_->at(i));
+    // std::cout << "are you ok????????????????????? " << i << std::endl;
         for(auto& cr : mutil_pri_rq_->at(i)) {
             /* 尝试持有协程 */
             if(!cr->Acquire()) continue;
             /* 更新协程状态 */
-            if(cr->UpdateState() == RoutineState::READY) return cr;
+            if(cr->UpdateState() == RoutineState::READY) {
+                return cr;
+            }
             /* 协程不为就绪态则释放协程 */
             cr->Release();
         }
@@ -79,14 +82,14 @@ void ClassicContext::Shutdown() {
 }
 
 /**
- * @brief 设置notify_grp_[current_grp_]++，唤醒一个Wait
+ * @brief 设置notify_grp_[current_grp_]++，唤醒一个processor
  */
 void ClassicContext::Notify(const std::string& group_name) {
     /* 对group进行上锁 */
     (&mtx_wq_[group_name])->Mutex().lock();
     notify_grp_[group_name]++;
     (&mtx_wq_[group_name])->Mutex().unlock();
-    /* 唤醒一个线程 */
+    /* 唤醒一个processor */
     cv_wq_[group_name].Cv().notify_one();
 }
 

@@ -54,7 +54,7 @@ int GlobalData::ProcessId() const { return porcess_id_; }
 
 /* 设置进程组 */
 void GlobalData::SetProcessGroup(const std::string& process_group) { 
-    process_group_ = process_group_;
+    process_group_ = process_group;
 }
 /* 返回进程组 */
 const std::string& GlobalData::ProcessGroup() const { return process_group_; }

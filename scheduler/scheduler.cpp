@@ -20,10 +20,21 @@ namespace scheduler {
 
 using hnu::rcmw::common::GlobalData;
 
+/**
+ * @brief 创建协程
+ * @param factory 协程工厂
+ * @param name 协程名称
+ */
 bool Scheduler::CreateTask(const RoutineFactory& factory, const std::string& name) {
     return CreateTask(factory.create_routine(), name, factory.GetDataVisitor());
 }
 
+/**
+ * @brief 创建协程
+ * @param func 协程执行体
+ * @param name 协程名称
+ * @param visitor 数据访问者
+ */
 bool Scheduler::CreateTask(std::function<void()>&& func, const std::string& name, 
                 std::shared_ptr<DataVisitorBase> visitor) {
     if(cyber_unlikely(stop_.load())) {
@@ -39,8 +50,11 @@ bool Scheduler::CreateTask(std::function<void()>&& func, const std::string& name
     cr->set_name(name);
     AINFO << "create croutine: " << name;
 
-    /* 这是啥？ */
-    if(!DispatchTask(cr)) return false;
+    /* 将协程分发到。。。 */
+    if(!DispatchTask(cr)) {
+        AERROR << "DispatchTask failed.";
+        return false;
+    }
 
     /* 这是啥？ */
     if(visitor != nullptr) {
@@ -52,11 +66,18 @@ bool Scheduler::CreateTask(std::function<void()>&& func, const std::string& name
     return true;
 }
 
+/**
+ * @brief 通知任务
+ * @param crid 协程id
+ */
 bool Scheduler::NotifyTask(uint64_t crid) {
     if(cyber_unlikely(stop_.load())) return true;
     return NotifyProcessor(crid);
 }
 
+/**
+ * @brief 停止调度，释放资源
+ */
 void Scheduler::Shutdown() {
     if(cyber_unlikely(stop_.load())) return;
     for(auto& ctx : pctxs_) ctx->Shutdown();
@@ -75,6 +96,9 @@ void Scheduler::Shutdown() {
     pctxs_.clear();
 }
 
+/**
+ * @brief 设置当前线程（调度器）亲和性
+ */
 void Scheduler::ProcessLevelResourceControl() {
     std::vector<int> cpus;
     ParseCpuset(process_level_cpuset_, &cpus);
@@ -86,6 +110,11 @@ void Scheduler::ProcessLevelResourceControl() {
     pthread_setaffinity_np(pthread_self(), sizeof(set), &set);
 }
 
+/**
+ * @brief 设置线程CPU亲和性与策略
+ * @param name 线程名称
+ * @param thr 被设置线程
+ */
 void Scheduler::SetInnerThreadAttr(const std::string& name, std::thread* thr) {
     if(thr != nullptr && inner_thr_confs_.find(name) != inner_thr_confs_.end()) {
         /* 拿到配置 */
@@ -100,6 +129,9 @@ void Scheduler::SetInnerThreadAttr(const std::string& name, std::thread* thr) {
     }
 }
 
+/**
+ * @brief 检查调度状态并输出到日志
+ */
 void Scheduler::CheckSchedStatus() {
     std::string snap_info;
     auto now = Time::Now().ToNanosecond();

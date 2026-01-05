@@ -31,7 +31,7 @@ void ParseCpuset(const std::string& str, std::vector<int>* cpuset) {
         }
 
         if(range.size() == 1) {
-            cpuset->push_back(std::stoi(range[1]));
+            cpuset->push_back(std::stoi(range[0]));
         }
         else if(range.size() == 2) {
             for(int i=std::stoi(range[0]), e=std::stoi(range[1]); i<=e; i++) {
