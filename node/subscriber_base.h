@@ -36,7 +36,7 @@ public:
 
     virtual void ClearData() = 0;
     virtual void Observe() = 0;
-    virtual void Empty() const = 0;
+    virtual bool Empty() const = 0;
     virtual bool HasReceived() const = 0;
     virtual double GetDelaySec() const = 0;
     virtual uint32_t PendingQueueSize() const = 0;

@@ -77,7 +77,7 @@ template <typename MessageT>
 void Publisher<MessageT>::Shutdown() {
     {
         std::lock_guard<std::mutex> lg(lock_);
-        if(!init_) reutrn;
+        if(!init_) return;
         init_ = false;
     }
     LeaveTheTopology();
@@ -139,6 +139,7 @@ template <typename MessageT>
 bool Publisher<MessageT>::Publish(const std::shared_ptr<MessageT>& msg_ptr) {
     RETURN_VAL_IF(!PublisherBase::IsInit(), false);
     transmitter_->Transmit(msg_ptr);
+    return true;
 }
 
 } // rcmw

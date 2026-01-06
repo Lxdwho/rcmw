@@ -70,10 +70,10 @@ void RtpsTransmitter<M>::Enable() {
         writer_attr.watt, mp_history);
     
     /* 注册rtps write */
-    ADEBUG << "I'm OK!";
+    // ADEBUG << "I'm OK!";
     bool reg = participant_->fastrtps_participant()->registerWriter(
         rtps_write, writer_attr.tatt, writer_attr.wqos);
-    ADEBUG << "I'm OK1!";
+    // ADEBUG << "I'm OK1!";
     if(reg) this->enabled_ = true;
 }
 

@@ -30,7 +30,7 @@ public:
     virtual void Shutdown() = 0;
 
     virtual bool HasSubscriber() { return false; }
-    virtual void GetSubscriber(std::vector<RoleAttributes>* subscribers) {}
+    virtual void GetSubscribers(std::vector<RoleAttributes>* subscribers) {}
 
     const std::string& GetChannelName() const {
         return role_attr_.channel_name;

@@ -164,7 +164,7 @@ public:
     }
 
     bool TryFetch(std::shared_ptr<M0>& m0) {
-        if(buffer_->Fetch(&next_msg_index_, m0)) {
+        if(buffer_.Fetch(&next_msg_index_, m0)) {
             next_msg_index_++;
             return true;
         }
