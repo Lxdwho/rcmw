@@ -6,6 +6,7 @@
 #include <vector>
 #include <rcmw/init.h>
 using namespace hnu::rcmw;
+using namespace hnu::rcmw::common;
 
 
 struct TestMsg : public Serializable
@@ -49,9 +50,11 @@ namespace george
 
 namespace Timer{
     void test_pub(){
+        Logger::Get_instance()->level(Logger::LOG_DEBUG);
         config::RoleAttributes role_attr;
         role_attr.channel_name = "exampletopic";
         role_attr.node_name = "publisher";
+        role_attr.host_ip = GlobalData::Instance()->HostIp();
         role_attr.channel_id =common::GlobalData::RegisterChannel("exampletopic");
 
         Publisher<ChangeMsg> publisher(role_attr);
@@ -70,6 +73,7 @@ namespace Timer{
         }
     }
 }
+
 int main()
 {
     hnu::rcmw::Init("PublisherTest");

@@ -99,9 +99,6 @@ private:
     FusionCallback fusion_callback_;
 };
 
-
-
-
 } // data
 } // rcmw
 } // hnu

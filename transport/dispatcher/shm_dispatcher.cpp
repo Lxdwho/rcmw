@@ -54,7 +54,7 @@ void ShmDispatcher::ThreadFunc() {
     {
         if(!notifier_->Listen(100, &readable_info)) continue;
         if(readable_info.host_id() != host_id_) {
-            ADEBUG << "shm readable info from other host." << host_id_
+            ADEBUG << "shm readable info from other host. " << host_id_
                    << " " << readable_info.host_id();
             continue;
         }

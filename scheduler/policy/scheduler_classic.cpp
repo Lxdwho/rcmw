@@ -54,7 +54,7 @@ SchedulerClassic::SchedulerClassic() {
         for(auto& group : classic_conf_.groups) {
             auto group_name = group.name;
             for(auto task : group.tasks) {
-                task.group_name = group.name;
+                task.group_name = group_name;
                 cr_confs_[task.name] = task;
                 AINFO << "cr_confs_[" << task.name << "]";
             }

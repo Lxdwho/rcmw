@@ -207,21 +207,21 @@ void SubscriberTest2(){
     AINFO << "Finish SubscriberTest2";
 }
 
-void test_sub(){
+void test_sub(std::string node_name){
         config::RoleAttributes role_attr;
         role_attr.channel_name = "exampletopic";
-        role_attr.node_name = "subscriber";
+        role_attr.node_name = node_name;
         role_attr.channel_id =common::GlobalData::RegisterChannel("exampletopic");
 
 
         Subscriber<ChangeMsg> subscriber(
-                role_attr,[](const std::shared_ptr<ChangeMsg>& msg){
+                role_attr, [](const std::shared_ptr<ChangeMsg>& msg){
                     std::cout << "timestamp is "<< msg->timestamp<< std::endl;
                 });
 
         std::boolalpha;
 
-        std::cout<<"Init subscriber " << subscriber.Init() << std::endl;
+        std::cout<<"Init subscriber " << (subscriber.Init() ? "true" : "false") << std::endl;
 
         while (1)
         {
@@ -230,12 +230,17 @@ void test_sub(){
 }
 }
 
-int main()
+int main(int argc, char* argv[])
 {
-    
     hnu::rcmw::Init("SubscriberTest");
+    // Logger::Get_instance()->Set_console(false);
+    Logger::Get_instance()->level(Logger::LOG_DEBUG);
+    if(argc > 1) {
+        std::string str = std::string(argv[1]);
+        Timer::test_sub(str);
+    }
+    else Timer::test_sub("Subscriber");
     //george::test_rtps_sub();
-    Timer::test_sub();
     // Timer::SubscriberTest1();
     // Timer::SubscriberTest2();
     return 0;
