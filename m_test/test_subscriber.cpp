@@ -3,8 +3,10 @@
 #include <rcmw/transport/message/message_info.h>
 #include <rcmw/config/unit_test.h>
 #include <gtest/gtest.h>
+#include <rcmw/common/global_data.h>
 #include <rcmw/init.h>
 using namespace hnu::rcmw;
+using namespace hnu::rcmw::common;
 
 struct TestMsg : public Serializable
 {
@@ -234,6 +236,7 @@ int main(int argc, char* argv[])
 {
     hnu::rcmw::Init("SubscriberTest");
     // Logger::Get_instance()->Set_console(false);
+    GlobalData::Instance()->SetProcessGroup("example_sched_classic");
     Logger::Get_instance()->level(Logger::LOG_DEBUG);
     if(argc > 1) {
         std::string str = std::string(argv[1]);

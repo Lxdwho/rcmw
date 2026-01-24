@@ -42,7 +42,7 @@ void TEST_ChangeMsg()
                         " seq:" << info.seq_num() << std::endl;
                         
                        };
-    auto rtps1 =Transport::Instance()->CreateReceiver<ChangeMsg>(attr,listener1, OptionalMode::SHM);
+    auto rtps1 =Transport::Instance()->CreateReceiver<ChangeMsg>(attr,listener1);
     printf("Press Enter to stop the Reader.\n");
     std::cin.ignore();
 }   

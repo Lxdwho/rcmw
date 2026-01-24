@@ -60,7 +60,7 @@ namespace Timer{
         Publisher<ChangeMsg> publisher(role_attr);
         std::cout<<"Init publisher " << publisher.Init()<< std::endl;
         ChangeMsg testmsg;
-        testmsg.timestamp = 1;
+        testmsg.timestamp = 0;
         std::shared_ptr<ChangeMsg> msg_ptr = std::make_shared<ChangeMsg>(testmsg);
         int n = 0;
         while (1)
@@ -77,6 +77,7 @@ namespace Timer{
 int main()
 {
     hnu::rcmw::Init("PublisherTest");
+    GlobalData::Instance()->SetProcessGroup("example_sched_classic");
     //george::test_rtps_pub();
     Timer::test_pub();
     return 0;
