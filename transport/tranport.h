@@ -30,13 +30,13 @@ public:
 
     template<typename M>
     auto CreateTransmitter(const RoleAttributes& attr,
-                           const OptionalMode& mode = OptionalMode::RTPS)->
+                           const OptionalMode& mode = OptionalMode::SHM)->
                            typename std::shared_ptr<Transmitter<M>>;
     
     template<typename M>
     auto CreateReceiver(const RoleAttributes& attr,
                         const typename Receiver<M>::MessageListener& msg_listener,
-                        const OptionalMode& mode = OptionalMode::RTPS)->
+                        const OptionalMode& mode = OptionalMode::SHM)->
                         typename std::shared_ptr<Receiver<M>>;
     
     ParticipantPtr participant() const { return participant_; }
