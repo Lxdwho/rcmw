@@ -22,22 +22,22 @@ template <typename K, typename V, std::size_t TableSize = 128,
           (TableSize & (TableSize - 1)) == 0, int>::type = 0>
 class AtomicHashMap {
 public:
-    AtomicHashMap() : capacity_(TableSize), mode_num_(capacity_ - 1) {}
+    AtomicHashMap() : capacity_(TableSize), mod_num_(capacity_ - 1) {}
     AtomicHashMap(const AtomicHashMap &orther) = delete;
     AtomicHashMap &operator=(const AtomicHashMap &other) = delete;
 
     bool Has(K key) {
-        uint64_t index = key & mode_num_;
+        uint64_t index = key & mod_num_;
         return table_[index].Has(key);
     }
 
     bool Get(K key, V **value) {
-        uint64_t index = key & mode_num_;
+        uint64_t index = key & mod_num_;
         return table_[index].Get(key, value);
     }
 
     bool Get(K key, V *value) {
-        uint64_t index = key & mode_num_;
+        uint64_t index = key & mod_num_;
         V *val = nullptr;
         bool res = table_[index].Get(key, &val);
         if(res) {
@@ -47,17 +47,17 @@ public:
     }
 
     void Set(K key) {
-        uint64_t index = key & mode_num_;
+        uint64_t index = key & mod_num_;
         table_[index].Insert(key);
     }
 
     void Set(K key, const V &value) {
-        uint64_t index = key & mode_num_;
+        uint64_t index = key & mod_num_;
         table_[index].Insert(key, value);
     }
 
     void Set(K key, V &&value) {
-        uint64_t index = key & mode_num_;
+        uint64_t index = key & mod_num_;
         table_[index].Insert(key, std::forward<V>(value)); // 使用forward存在问题，但结果正确
     }
 
@@ -226,8 +226,7 @@ private:
             Entry *target = nullptr;
             Entry *new_entry = nullptr;
             V *new_value = nullptr;
-            while (true)
-            {
+            while (true) {
                 if(Find(key, &prev, &target)) {
                     if(!new_value) {
                         new_value = new V();
@@ -277,7 +276,7 @@ private:
 
     Bucket table_[TableSize];   // 哈希链表组
     uint64_t capacity_;         // 最大存储数
-    uint64_t mode_num_;         // 
+    uint64_t mod_num_;         // 
 };
 
 } // namespace base
