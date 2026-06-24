@@ -4,12 +4,11 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/me/cmw_ws/",
-                "/home/me/cmw_ws/rcmw/m_test/",
-                "/home/me/cmw_ws/rcmw/base/",
-                "/home/me/googletest/install/include/",
-                "/home/me/Fast-DDS/install/include/",
-                "/home/me/cmw_ws/rcmw/thirdparty/"
+                "/home/mi/Mys/prj/",
+                "/home/mi/Mys/prj/rcmw/",
+                "/home/mi/Mys/prj/rcmw/m_test/",
+                "/home/mi/Mys/prj/rcmw/base/",
+                "/home/mi/Mys/prj/rcmw/thirdparty/"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",

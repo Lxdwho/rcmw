@@ -6,3 +6,4 @@
 *.dylib
 *.dll
 *.log
+m_test/obj

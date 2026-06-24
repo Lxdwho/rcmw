@@ -233,3 +233,16 @@ BUILD FAILED in 3s
 2 actionable tasks: 2 executed
 ```
 
+## 9. Gtest安装
+
+``` bash
+cd ~
+git clone https://github.com/google/googletest.git
+cd googletest
+git checkout v1.12.0
+mkdir build && cd build
+cmake .. -DCMAKE_INSTALL_PREFIX=/home/mi/googletest/install \
+         -DBUILD_SHARED_LIBS=OFF
+make -j && make install
+cd ~ && rm -rf googletest
+```
