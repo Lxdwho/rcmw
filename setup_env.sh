@@ -3,7 +3,11 @@
 # rcmw 一键环境配置脚本
 # 自动检查环境、安装依赖、编译 FastDDS / GTest
 #
-# 用法: chmod +x setup_env.sh && ./setup_env.sh
+# 用法:
+#   ./setup_env.sh              # 完整安装到 thirdparty/
+#   ./setup_env.sh --prefix /path/to/dir  # 指定安装目录
+#   ./setup_env.sh gtest        # 仅安装 GTest
+#   ./setup_env.sh --help       # 查看帮助
 # ============================================================
 
 set -e
@@ -18,10 +22,53 @@ info()  { echo -e "${GREEN}[INFO]${NC} $*"; }
 warn()  { echo -e "${YELLOW}[WARN]${NC} $*"; }
 error() { echo -e "${RED}[ERROR]${NC} $*"; }
 
-# ---------- 安装路径 ----------
-FASTDDS_PREFIX="$HOME/Fast-DDS/install"
-GTEST_PREFIX="$HOME/googletest/install"
+# ---------- 项目根目录 ----------
 PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
+
+# ---------- 解析 --prefix 参数 ----------
+INSTALL_PREFIX=""
+ACTION="all"
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --prefix)
+            INSTALL_PREFIX="$2"
+            shift 2
+            ;;
+        --help|-h)
+            echo "用法: $0 [--prefix 安装目录] [动作]"
+            echo ""
+            echo "  --prefix DIR   指定安装目录（默认: 项目 thirdparty/）"
+            echo ""
+            echo "动作:"
+            echo "  all        - 完整安装（默认）"
+            echo "  check      - 仅检查环境"
+            echo "  deps       - 仅安装系统依赖"
+            echo "  foonathan  - 仅安装 foonathan_memory"
+            echo "  fastcdr    - 仅安装 FastCDR"
+            echo "  fastdds    - 仅安装 FastDDS"
+            echo "  gtest      - 仅安装 GTest"
+            echo "  verify     - 仅验证安装"
+            echo "  test       - 仅编译测试"
+            exit 0
+            ;;
+        *)
+            ACTION="$1"
+            shift
+            ;;
+    esac
+done
+
+# 默认安装到 thirdparty/
+if [ -z "$INSTALL_PREFIX" ]; then
+    INSTALL_PREFIX="$PROJECT_ROOT/thirdparty"
+fi
+
+FASTDDS_PREFIX="$INSTALL_PREFIX/Fast-DDS"
+GTEST_PREFIX="$INSTALL_PREFIX/googletest"
+
+# 临时编译目录
+BUILD_TMP="$PROJECT_ROOT/.build_tmp"
 
 # ============================================================
 # 1. 环境检查
@@ -29,35 +76,31 @@ PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
 check_env() {
     info "========== 环境检查 =========="
 
-    # 检查 Ubuntu
     if [ ! -f /etc/os-release ]; then
         error "未检测到 Ubuntu 系统"
         exit 1
     fi
+    # shellcheck source=/dev/null
     . /etc/os-release
     info "系统: $PRETTY_NAME"
 
-    # 检查 GCC 版本
     if command -v gcc &>/dev/null; then
-        GCC_VER=$(gcc -dumpversion)
-        info "GCC: $GCC_VER"
+        info "GCC: $(gcc -dumpversion)"
     else
         warn "GCC 未安装，将在后续步骤安装"
     fi
 
-    # 检查 CMake 版本
     if command -v cmake &>/dev/null; then
-        CMAKE_VER=$(cmake --version | head -1 | grep -oP '\d+\.\d+\.\d+')
-        info "CMake: $CMAKE_VER"
+        info "CMake: $(cmake --version | head -1 | grep -oP '\d+\.\d+\.\d+')"
     else
         warn "CMake 未安装，将在后续步骤安装"
     fi
 
-    # 检查 git
     if ! command -v git &>/dev/null; then
         warn "Git 未安装，将在后续步骤安装"
     fi
 
+    info "安装目录: $INSTALL_PREFIX"
     info "环境检查完成"
     echo ""
 }
@@ -92,8 +135,7 @@ install_system_deps() {
 install_foonathan_memory() {
     info "========== 安装 foonathan_memory =========="
 
-    mkdir -p "$HOME/Fast-DDS"
-    cd "$HOME/Fast-DDS"
+    mkdir -p "$BUILD_TMP" && cd "$BUILD_TMP"
 
     if [ -d "foonathan_memory_vendor" ]; then
         warn "foonathan_memory_vendor 已存在，跳过下载"
@@ -104,12 +146,9 @@ install_foonathan_memory() {
     cd foonathan_memory_vendor
     mkdir -p build && cd build
     cmake .. -DCMAKE_INSTALL_PREFIX="$FASTDDS_PREFIX" -DBUILD_SHARED_LIBS=ON
-    make -j$(nproc)
-    make install
 
-    # 清理源码和 build
-    cd "$HOME/Fast-DDS"
-    rm -rf foonathan_memory_vendor
+    make -j"$(nproc)"
+    make install
 
     info "foonathan_memory 安装完成"
     echo ""
@@ -121,7 +160,7 @@ install_foonathan_memory() {
 install_fastcdr() {
     info "========== 安装 FastCDR v1.0.15 =========="
 
-    cd "$HOME/Fast-DDS"
+    mkdir -p "$BUILD_TMP" && cd "$BUILD_TMP"
 
     if [ -d "Fast-CDR" ]; then
         warn "Fast-CDR 已存在，跳过下载"
@@ -133,12 +172,8 @@ install_fastcdr() {
     git checkout v1.0.15
     mkdir -p build && cd build
     cmake .. -DCMAKE_INSTALL_PREFIX="$FASTDDS_PREFIX"
-    make -j$(nproc)
+    make -j"$(nproc)"
     make install
-
-    # 清理源码和 build
-    cd "$HOME/Fast-DDS"
-    rm -rf Fast-CDR
 
     info "FastCDR 安装完成"
     echo ""
@@ -150,7 +185,7 @@ install_fastcdr() {
 install_fastdds() {
     info "========== 安装 FastDDS v2.3.0 =========="
 
-    cd "$HOME/Fast-DDS"
+    mkdir -p "$BUILD_TMP" && cd "$BUILD_TMP"
 
     if [ -d "Fast-DDS" ]; then
         warn "Fast-DDS 已存在，跳过下载"
@@ -162,12 +197,8 @@ install_fastdds() {
     git checkout v2.3.0
     mkdir -p build && cd build
     cmake .. -DCMAKE_INSTALL_PREFIX="$FASTDDS_PREFIX" -DCMAKE_PREFIX_PATH="$FASTDDS_PREFIX"
-    make -j$(nproc)
+    make -j"$(nproc)"
     make install
-
-    # 清理源码和 build
-    cd "$HOME/Fast-DDS"
-    rm -rf Fast-DDS
 
     info "FastDDS 安装完成"
     echo ""
@@ -179,7 +210,7 @@ install_fastdds() {
 install_gtest() {
     info "========== 安装 GTest v1.12.0 =========="
 
-    cd "$HOME"
+    mkdir -p "$BUILD_TMP" && cd "$BUILD_TMP"
 
     if [ -d "googletest" ]; then
         warn "googletest 已存在，跳过下载"
@@ -191,28 +222,48 @@ install_gtest() {
     git checkout v1.12.0
     mkdir -p build && cd build
     cmake .. -DCMAKE_INSTALL_PREFIX="$GTEST_PREFIX" -DBUILD_SHARED_LIBS=OFF
-    make -j$(nproc)
+    make -j"$(nproc)"
     make install
-
-    # 只删源码和 build，保留 install 目录
-    cd "$HOME"
-    rm -rf googletest/build
-    rm -rf googletest/.git
-    rm -rf googletest/googletest googletest/googlemock
-    rm -rf googletest/CMakeLists.txt googletest/README.md
 
     info "GTest 安装完成"
     echo ""
 }
 
 # ============================================================
-# 7. 设置环境变量
+# 7. 清理临时编译目录
+# ============================================================
+cleanup_build() {
+    info "========== 清理临时编译文件 =========="
+
+    if [ -d "$BUILD_TMP" ]; then
+        rm -rf "$BUILD_TMP"
+        info "已清理 $BUILD_TMP"
+    fi
+
+    # 只有安装到项目 thirdparty/ 时才清理 install 中的非必要文件
+    DEFAULT_PREFIX="$PROJECT_ROOT/thirdparty"
+    if [ "$INSTALL_PREFIX" = "$DEFAULT_PREFIX" ]; then
+        for dir in "$FASTDDS_PREFIX" "$GTEST_PREFIX"; do
+            if [ -d "$dir" ]; then
+                cd "$dir"
+                rm -rf bin share
+                rm -rf lib/cmake lib/pkgconfig
+                info "已清理 $dir 中的非必要文件"
+            fi
+        done
+    fi
+
+    echo ""
+}
+
+# ============================================================
+# 8. 设置环境变量
 # ============================================================
 setup_env_vars() {
     info "========== 设置环境变量 =========="
 
     BASHRC="$HOME/.bashrc"
-    MARKER="# === rcmw FastDDS env ==="
+    MARKER="# === rcmw env ==="
 
     # 先删除旧的配置
     if grep -q "$MARKER" "$BASHRC" 2>/dev/null; then
@@ -220,11 +271,12 @@ setup_env_vars() {
         warn "已清理 .bashrc 中的旧配置"
     fi
 
-    cat >> "$BASHRC" << 'EOF'
-# === rcmw FastDDS env ===
-export PATH=$PATH:$HOME/Fast-DDS/install/bin
-export LD_LIBRARY_PATH=$HOME/Fast-DDS/install/lib:$LD_LIBRARY_PATH
-# === rcmw FastDDS env ===
+    cat >> "$BASHRC" << EOF
+# === rcmw env ===
+export FASTDDS_PREFIX=$FASTDDS_PREFIX
+export GTEST_PREFIX=$GTEST_PREFIX
+export LD_LIBRARY_PATH=$FASTDDS_PREFIX/lib:\$LD_LIBRARY_PATH
+# === rcmw env ===
 EOF
 
     info "环境变量已写入 $BASHRC"
@@ -233,7 +285,7 @@ EOF
 }
 
 # ============================================================
-# 8. 验证安装
+# 9. 验证安装
 # ============================================================
 verify_install() {
     info "========== 验证安装 =========="
@@ -241,56 +293,26 @@ verify_install() {
     local ok=0
     local fail=0
 
-    # 检查 FastDDS
-    if [ -f "$FASTDDS_PREFIX/lib/libfastrtps.so" ]; then
-        info "✓ libfastrtps.so"
-        ok=$((ok+1))
-    else
-        error "✗ libfastrtps.so 未找到"
-        fail=$((fail+1))
-    fi
+    check_file() {
+        local label="$1" path="$2"
+        if [ -e "$path" ]; then
+            info "✓ $label"
+            ok=$((ok+1))
+        else
+            error "✗ $label 未找到: $path"
+            fail=$((fail+1))
+        fi
+    }
 
-    if [ -f "$FASTDDS_PREFIX/lib/libfastcdr.so" ]; then
-        info "✓ libfastcdr.so"
-        ok=$((ok+1))
-    else
-        error "✗ libfastcdr.so 未找到"
-        fail=$((fail+1))
-    fi
-
-    if [ -f "$FASTDDS_PREFIX/lib/libfoonathan_memory"*.so 2>/dev/null ]; then
-        info "✓ libfoonathan_memory.so"
-        ok=$((ok+1))
-    else
-        error "✗ libfoonathan_memory.so 未找到"
-        fail=$((fail+1))
-    fi
-
-    # 检查 GTest
-    if [ -f "$GTEST_PREFIX/lib/libgtest.a" ]; then
-        info "✓ libgtest.a"
-        ok=$((ok+1))
-    else
-        error "✗ libgtest.a 未找到"
-        fail=$((fail+1))
-    fi
-
-    # 检查头文件
-    if [ -d "$FASTDDS_PREFIX/include/fastrtps" ]; then
-        info "✓ FastDDS 头文件"
-        ok=$((ok+1))
-    else
-        error "✗ FastDDS 头文件未找到"
-        fail=$((fail+1))
-    fi
-
-    if [ -d "$GTEST_PREFIX/include/gtest" ]; then
-        info "✓ GTest 头文件"
-        ok=$((ok+1))
-    else
-        error "✗ GTest 头文件未找到"
-        fail=$((fail+1))
-    fi
+    check_file "libfastrtps.so"        "$FASTDDS_PREFIX/lib/libfastrtps.so"
+    check_file "libfastcdr.so"         "$FASTDDS_PREFIX/lib/libfastcdr.so"
+    # shellcheck disable=SC2086
+    check_file "libfoonathan_memory"   $FASTDDS_PREFIX/lib/libfoonathan_memory*.so
+    check_file "libgtest.a"            "$GTEST_PREFIX/lib/libgtest.a"
+    check_file "libgtest_main.a"       "$GTEST_PREFIX/lib/libgtest_main.a"
+    check_file "FastDDS 头文件"        "$FASTDDS_PREFIX/include/fastrtps"
+    check_file "FastCDR 头文件"        "$FASTDDS_PREFIX/include/fastcdr"
+    check_file "GTest 头文件"          "$GTEST_PREFIX/include/gtest"
 
     echo ""
     info "验证完成: ${ok} 通过, ${fail} 失败"
@@ -300,18 +322,25 @@ verify_install() {
         return 1
     fi
 
+    # 显示安装目录大小
+    local fastdds_size
+    fastdds_size=$(du -sh "$FASTDDS_PREFIX" 2>/dev/null | cut -f1)
+    local gtest_size
+    gtest_size=$(du -sh "$GTEST_PREFIX" 2>/dev/null | cut -f1)
+    info "FastDDS 安装大小: $fastdds_size"
+    info "GTest  安装大小: $gtest_size"
     info "所有组件安装成功！"
     echo ""
 }
 
 # ============================================================
-# 9. 编译测试（可选）
+# 10. 编译测试（可选）
 # ============================================================
 build_test() {
     info "========== 编译测试 =========="
 
     cd "$PROJECT_ROOT/m_test"
-    if make test_lock_benchmark -j$(nproc); then
+    if make test_lock_benchmark -j"$(nproc)"; then
         info "测试编译成功: m_test/test_lock_benchmark.out"
         ls -lh test_lock_benchmark.out
     else
@@ -328,8 +357,7 @@ main() {
     echo ""
     info "=========================================="
     info "  rcmw 环境一键配置"
-    info "  安装路径: FastDDS → $FASTDDS_PREFIX"
-    info "           GTest  → $GTEST_PREFIX"
+    info "  安装目录: $INSTALL_PREFIX"
     info "=========================================="
     echo ""
 
@@ -339,6 +367,7 @@ main() {
     install_fastcdr
     install_fastdds
     install_gtest
+    cleanup_build
     setup_env_vars
     verify_install
     build_test
@@ -349,28 +378,21 @@ main() {
     info "=========================================="
 }
 
-# 支持选择性安装
-case "${1:-all}" in
-    all)                main ;;
-    check)              check_env ;;
-    deps)               install_system_deps ;;
-    foonathan)          install_foonathan_memory ;;
-    fastcdr)            install_fastcdr ;;
-    fastdds)            install_fastdds ;;
-    gtest)              install_gtest ;;
-    verify)             verify_install ;;
-    test)               build_test ;;
+# 分发动作
+case "$ACTION" in
+    all)        main ;;
+    check)      check_env ;;
+    deps)       install_system_deps ;;
+    foonathan)  install_foonathan_memory ;;
+    fastcdr)    install_fastcdr ;;
+    fastdds)    install_fastdds ;;
+    gtest)      install_gtest ;;
+    verify)     verify_install ;;
+    test)       build_test ;;
+    cleanup)    cleanup_build ;;
     *)
-        echo "用法: $0 [all|check|deps|foonathan|fastcdr|fastdds|gtest|verify|test]"
-        echo ""
-        echo "  all        - 完整安装（默认）"
-        echo "  check      - 仅检查环境"
-        echo "  deps       - 仅安装系统依赖"
-        echo "  foonathan  - 仅安装 foonathan_memory"
-        echo "  fastcdr    - 仅安装 FastCDR"
-        echo "  fastdds    - 仅安装 FastDDS"
-        echo "  gtest      - 仅安装 GTest"
-        echo "  verify     - 仅验证安装"
-        echo "  test       - 仅编译测试"
+        echo "未知动作: $ACTION"
+        echo "执行 '$0 --help' 查看帮助"
+        exit 1
         ;;
 esac
