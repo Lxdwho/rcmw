@@ -67,8 +67,7 @@ private:
         Node* next = nullptr;
         Node() { ref_count.store(2); }
         void release() {
-            ref_count.fetch_sub(1);
-            if(ref_count.load() == 0) {
+            if(ref_count.fetch_sub(1) == 1) {  // 旧值==1 说明减后==0
                 delete this;
             }
         }
