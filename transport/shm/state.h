@@ -44,7 +44,7 @@ private:
     std::atomic<bool> need_remap_ = {false};            // 
     std::atomic<uint32_t> seq_ = { 0 };                 // 
     std::atomic<uint32_t> reference_count_ = { 0 };     // 引用计数
-    std::atomic<uint32_t> ceiling_msg_size_;            // 
+    std::atomic<uint64_t> ceiling_msg_size_;            // 
 };
 
 } // transport
