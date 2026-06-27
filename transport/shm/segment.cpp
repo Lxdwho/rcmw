@@ -92,7 +92,7 @@ bool Segment::AcquireBlockToRead(ReadableBlock* readable_block) {
 
 void Segment::ReleaseReadableBlock(const ReadableBlock& readable_block) {
     auto index = readable_block.index;
-    if(index >= conf_.block_buf_size()) return;
+    if(index >= conf_.block_num()) return;
     blocks_[index].ReleaseReadLock();
 }
 

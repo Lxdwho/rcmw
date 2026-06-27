@@ -87,8 +87,14 @@ bool PosixSegment::OpenOnly() {
     uint32_t i=0;
     for(; i < conf_.block_num(); i++) {
         uint8_t* addr = reinterpret_cast<uint8_t*>(
-            static_cast<char*>(managed_shm_) + conf_.block_num() * sizeof(Block) + 
-            i * conf_.block_buf_size());
+            static_cast<char*>(managed_shm_) + sizeof(State) + 
+            conf_.block_num() * sizeof(Block) +  i * conf_.block_buf_size());
+        
+        if(addr == nullptr) break;
+        {
+            std::lock_guard<std::mutex> lock(block_buf_lock_);
+            block_buf_addrs_[i] = addr;
+        }
     }
     if(i != conf_.block_num()) {
         AERROR << "open only failed.";
