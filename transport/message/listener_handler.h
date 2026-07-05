@@ -115,7 +115,7 @@ void ListenerHandler<M>::Run(const Message& msg, const MessageInfo& msg_info) {
     signal_(msg, msg_info);
 
     uint64_t oppo_id = msg_info.sender_id().HashValue();
-    WriteLockGuard<AtomicRWLock> lock(rw_lock_);
+    ReadLockGuard<AtomicRWLock> lock(rw_lock_);
     if(signals_.find(oppo_id) == signals_.end()) return;
     (*signals_[oppo_id])(msg, msg_info);
 }

@@ -50,8 +50,7 @@ void ShmDispatcher::AddSegment(const RoleAttributes& self_attr) {
 
 void ShmDispatcher::ThreadFunc() {
     ReadableInfo readable_info;
-    while (!is_shutdown_.load())
-    {
+    while (!is_shutdown_.load()) {
         if(!notifier_->Listen(100, &readable_info)) continue;
         if(readable_info.host_id() != host_id_) {
             ADEBUG << "shm readable info from other host. " << host_id_
@@ -59,13 +58,13 @@ void ShmDispatcher::ThreadFunc() {
             continue;
         }
         uint64_t channel_id = readable_info.channel_id();
-        uint64_t block_index = readable_info.block_index();
+        uint32_t block_index = readable_info.block_index();
 
         {
             ReadLockGuard<AtomicRWLock> lg(segments_lock_);
             if(segments_.count(channel_id) == 0) continue;
             if(previous_indexs_.count(channel_id) == 0)
-                previous_indexs_[channel_id] == UINT32_MAX;
+                previous_indexs_[channel_id] = UINT32_MAX;
             uint32_t& previous_index = previous_indexs_[channel_id];
             if(block_index != 0 && previous_index != UINT32_MAX) {
                 if(block_index == previous_index)
@@ -109,7 +108,7 @@ void ShmDispatcher::Shutdown() {
     if(thread_.joinable()) thread_.join();
     
     {
-        ReadLockGuard<AtomicRWLock> lock(segments_lock_);
+        WriteLockGuard<AtomicRWLock> lock(segments_lock_);
         segments_.clear();
     }
 }
