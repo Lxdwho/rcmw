@@ -29,6 +29,9 @@ public:
 
     void Enable() override;
     void Disable() override;
+    
+    void Enable(const RoleAttributes& attr) override;
+    void Disable(const RoleAttributes& attr) override;
 
     bool Transmit(const MessagePtr& msg, const MessageInfo& info) override;
 private:
@@ -38,6 +41,7 @@ private:
     uint64_t channel_id_;   // 发送的通道、话题
     uint64_t host_id_;      // 发送主机ID
     NotifierPtr notifier_;  // 发送notifier
+    std::atomic<int> receiver_count_;
 };
 
 /**
@@ -50,6 +54,7 @@ ShmTransmitter<M>::ShmTransmitter(const RoleAttributes& attr)
     : Transmitter<M>(attr), 
       segment_(nullptr), 
       channel_id_(attr.channel_id),
+      receiver_count_(0),
       notifier_(nullptr)  
       { host_id_ = common::Hash(attr.host_ip); }
 
@@ -62,6 +67,21 @@ ShmTransmitter<M>::~ShmTransmitter() {
     Disable();
 }
 
+template <typename M>
+void ShmTransmitter<M>::Enable(const RoleAttributes& attr) {
+    receiver_count_.fetch_add(1);
+    if(this->enabled_) return;
+    this->Enable();
+}
+
+template <typename M>
+void ShmTransmitter<M>::Disable(const RoleAttributes& attr) {
+    if(!this->enabled_) return;
+    if(receiver_count_.fetch_sub(1) <=1) {
+        this->Disable();
+    }
+}
+
 /**
  * @tparam M: 发送的消息类型
  * @brief 设置Transmitter状态，并实例化segment_以及notifier_
@@ -69,6 +89,10 @@ ShmTransmitter<M>::~ShmTransmitter() {
 template <typename M>
 void ShmTransmitter<M>::Enable() {
     if(this->enabled_) return;
+    if(receiver_count_.load() == 0) {
+        AERROR << "please enable shm transmitter by passing role attr.";
+        return;
+    }
     segment_ = SegmentFactory::CreateSegment(channel_id_);
     notifier_ = NotifierFactory::CreateNotifier();
     this->enabled_ = true;
