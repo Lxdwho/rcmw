@@ -23,7 +23,7 @@ warn()  { echo -e "${YELLOW}[WARN]${NC} $*"; }
 error() { echo -e "${RED}[ERROR]${NC} $*"; }
 
 # ---------- 项目根目录 ----------
-PROJECT_ROOT="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # ---------- 解析 --prefix 参数 ----------
 INSTALL_PREFIX=""
@@ -273,6 +273,7 @@ setup_env_vars() {
 
     cat >> "$BASHRC" << EOF
 # === rcmw env ===
+export RCMW_PATH=$PROJECT_ROOT
 export FASTDDS_PREFIX=$FASTDDS_PREFIX
 export GTEST_PREFIX=$GTEST_PREFIX
 export LD_LIBRARY_PATH=$FASTDDS_PREFIX/lib:\$LD_LIBRARY_PATH
