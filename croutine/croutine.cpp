@@ -52,7 +52,7 @@ CRoutine::CRoutine(const RoutineFuc &func) : func_(func) {
     /* 初始化上下文 */
     MakeContext(CRoutineEntry, this, context_.get());
     state_ = RoutineState::READY;
-    updated_.test_and_set(std::memory_order_relaxed);
+    updated_.test_and_set(std::memory_order_release);
 }
 
 CRoutine::~CRoutine() { context_ = nullptr; }
