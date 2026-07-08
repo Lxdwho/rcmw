@@ -20,7 +20,7 @@ namespace {
     std::shared_ptr<base::CCObjectPool<RoutineContext>> context_pool = nullptr;
     std::once_flag pool_init_flag;
     /**
-     * @brief 协程执行实体
+     * @brief 协程入口函数，应当在Run函数中死循环，否则跑飞
      * @param arg 传入协程本身
      */
     void CRoutineEntry(void* arg) {
@@ -30,6 +30,10 @@ namespace {
     }
 }
 
+/**
+ * @brief 构造函数：使用call_once实现了单例对象池，并从对象池中取出一个协程上下文
+ * @param func 协程执行函数
+ */
 CRoutine::CRoutine(const RoutineFuc &func) : func_(func) {
     /* 实例化协程上下文对象池 */
     std::call_once(pool_init_flag, [&]{
@@ -57,6 +61,10 @@ CRoutine::CRoutine(const RoutineFuc &func) : func_(func) {
 
 CRoutine::~CRoutine() { context_ = nullptr; }
 
+/**
+ * @brief 运行协程，检查状态后换栈
+ * @return 协程执行完/不满足要求退出后，返回协程状态
+ */
 RoutineState CRoutine::Resume() {
     if(cyber_unlikely(force_stop_)) {
         state_ = RoutineState::FINISHED;
@@ -74,6 +82,9 @@ RoutineState CRoutine::Resume() {
     return state_;
 }
 
+/**
+ * @brief 停止协程，将状态为置为false
+ */
 void CRoutine::Stop() { force_stop_ = true; }
 
 } // croutine

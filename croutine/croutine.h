@@ -27,125 +27,50 @@ enum class RoutineState { READY, FINISHED, SLEEP, IO_WAIT, DATA_WAIT };
 
 class CRoutine {
 public:
-    /**
-     * @brief 构造函数：使用call_once实现了单例对象池，并从对象池中取出一个协程上下文
-     * @param func 协程执行函数
-     */
     explicit CRoutine(const RoutineFuc& func);
     virtual ~CRoutine();
 
-    /**
-     * @brief 回到主线程
-     */
+    RoutineState Resume();
     static void Yield();
-    
-    /**
-     * @brief 指定协程状态并回到主线程
-     * @param state 指定协程状态
-     */
     static void Yield(const RoutineState& state);
 
-    /**
-     * @brief 设置主栈
-     */
     static void SetMainContext(const std::shared_ptr<RoutineContext>& context);
-
-    /**
-     * @brief 获取当前协程
-     */
-    static CRoutine* GetCurrentRoutine();
-
-    /**
-     * @brief 获取主栈指针
-     */
     static char **GetMainStack();
 
-    /**
-     * @brief 添加锁？
-     * @return true 加锁成功，false 加锁失败
-     */
-    bool Acquire();
+    static CRoutine* GetCurrentRoutine();
 
-    /**
-     * @brief 释放锁？
-     */
-    void Release();
-
-    /**
-     * @brief 设置协程状态更新标志位为：false
-     */
-    void SetUpdateFlag();
-
-    RoutineState Resume();
-
-    /**
-     * @brief 更新协程状态
-     * @return 返回更新后的状态
-     */
-    RoutineState UpdateState();
-
-    /**
-     * @brief 获取协程上下文
-     */
     RoutineContext* GetContext();
-
-    /**
-     * @brief 获取上下文栈指针
-     */
     char** GetStack();
 
-    /**
-     * @brief 运行协程执行体
-     */
+    bool Acquire();
+    void Release();
+
+    void SetUpdateFlag();
+    RoutineState UpdateState();
+
     void Run();
 
-    /**
-     * @brief 停止协程，将状态为置为false
-     */
     void Stop();
-
-    /**
-     * @brief 设置协程状态为READY
-     */
+    
     void Wake();
-
-    /**
-     * @brief 设置协程状态为DATA_WAIT
-     */
     void HangUp();
-
-    /**
-     * @brief 设置协程状态为睡眠
-     * @param sleep_duration 睡眠时间
-     */
     void Sleep(const Duration& sleep_duration);
-
-    /**
-     * @brief 获取协程状态
-     */
-    RoutineState state() const;
-
-    /**
-     * @brief 设置协程状态
-     */
-    void set_state(const RoutineState& state);
-
-    /**
-     * @brief 获取协程wake_time_
-     */
     std::chrono::steady_clock::time_point wake_time() const;
 
-    uint64_t id() const;
-    void set_id(uint64_t id);
+    RoutineState state() const { return state_; }
+    void set_state(const RoutineState& state) { state_ = state; }
 
-    const std::string &name() const;
-    void set_name(const std::string& name);
+    uint64_t id() const { return id_; }
+    void set_id(uint64_t id) { id_ = id; }
 
-    int processor_id() const;
-    void set_processor_id(int processor_id);
+    const std::string &name() const { return name_; }
+    void set_name(const std::string& name) { name_ = name; }
 
-    uint32_t priority() const;
-    void set_priority(uint32_t priority);
+    int processor_id() const { return process_id_; }
+    void set_processor_id(int processor_id) { process_id_ = processor_id; }
+
+    uint32_t priority() const { return priority_; }
+    void set_priority(uint32_t priority) { priority_ = priority; }
 
     void set_group_name(const std::string& group_name) { group_name_  = group_name; }
     const std::string& group_name() { return group_name_; }
@@ -177,50 +102,76 @@ private:
     static thread_local char* main_stack_;
 };
 
+/**
+ * @brief 指定协程状态并回到主线程
+ * @param state 指定协程状态
+ */
 inline void CRoutine::Yield(const RoutineState& state) {
     auto routine = GetCurrentRoutine();
     routine->set_state(state);
     SwapContext(GetCurrentRoutine()->GetStack(), GetMainStack());
 }
 
+/**
+ * @brief 回到主线程
+ */
 inline void CRoutine::Yield() {
     SwapContext(GetCurrentRoutine()->GetStack(), GetMainStack());
 }
 
+/**
+ * @brief 获取当前协程
+ */
 inline CRoutine* CRoutine::GetCurrentRoutine() { return current_routine_; }
 
+/**
+ * @brief 获取主栈指针
+ */
 inline char** CRoutine::GetMainStack() { return &main_stack_; }
 
+/**
+ * @brief 获取协程上下文
+ */
 inline RoutineContext* CRoutine::GetContext() { return context_.get(); }
 
+/**
+ * @brief 获取上下文栈指针
+ */
 inline char** CRoutine::GetStack() { return &(context_->sp); }
 
+/**
+ * @brief 运行协程执行体
+ */
 inline void CRoutine::Run() { func_(); }
 
-inline void CRoutine::set_state(const RoutineState &state) { state_ = state; }
-
-inline RoutineState CRoutine::state() const { return state_; }
-
+/**
+ * @brief 获取协程wake_time_
+ */
 inline std::chrono::steady_clock::time_point CRoutine::wake_time() const { return wake_time_; }
 
+/**
+ * @brief 设置协程状态为READY
+ */
 inline void CRoutine::Wake() { state_ = RoutineState::READY; } 
 
+/**
+ * @brief 设置协程状态为DATA_WAIT
+ */
 inline void CRoutine::HangUp() { state_ = RoutineState::DATA_WAIT; }
 
+/**
+ * @brief 设置协程状态为睡眠
+ * @param sleep_duration 睡眠时间
+ */
 inline void CRoutine::Sleep(const Duration& sleep_duration) {
     wake_time_ = std::chrono::steady_clock::now() + sleep_duration;
     CRoutine::Yield(RoutineState::SLEEP);
 }
 
-inline uint64_t CRoutine::id() const { return id_; }
-inline void CRoutine::set_id(uint64_t id) { id_ = id; }
-
-inline const std::string& CRoutine::name() const { return name_; }
-inline void CRoutine::set_name(const std::string& name) { name_ = name; }
-
-inline int CRoutine::processor_id() const { return process_id_; }
-inline void CRoutine::set_processor_id(int processor_id) { process_id_ = processor_id; }
-
+/**
+ * @brief 更新协程状态
+ * @return 返回更新后的状态
+ */
 inline RoutineState CRoutine::UpdateState() {
     if(state_ == RoutineState::SLEEP && std::chrono::steady_clock::now() > wake_time_) {
         state_ = RoutineState::READY;
@@ -234,17 +185,24 @@ inline RoutineState CRoutine::UpdateState() {
     return state_;
 }
 
-inline uint32_t CRoutine::priority() const { return priority_; }
-inline void CRoutine::set_priority(uint32_t priority) { priority_ = priority; }
-
+/**
+ * @brief 协程锁加锁
+ * @return true 加锁成功，false 加锁失败
+ */
 inline bool CRoutine::Acquire() { 
     return !lock_.test_and_set(std::memory_order_acquire);
 }
 
+/**
+ * @brief 协程锁解锁
+ */
 inline void CRoutine::Release() {
     return lock_.clear(std::memory_order_release);
 }
 
+/**
+ * @brief 设置协程状态更新标志位为：false
+ */
 inline void CRoutine::SetUpdateFlag() {
     updated_.clear(std::memory_order_release);
 }

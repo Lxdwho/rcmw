@@ -54,6 +54,7 @@ protected:
     std::once_flag thread_flag_;
     std::thread thread_;
 
+    // 上下文等待
     std::condition_variable cv_ctx_;
     std::mutex ctx_mutex_;
 

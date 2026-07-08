@@ -25,7 +25,8 @@ Processor::Processor() { running_.store(true); }
 Processor::~Processor() { Stop(); }
 
 /**
- * @brief 抽象CPU执行协程
+ * @brief 抽象CPU执行体，反复取就绪协程执行
+ * @details 为防止死锁采取通知模式，取不到就绪协程后阻塞等待
  */
 void Processor::Run() {
     /* 获取内核级线程id */
@@ -55,12 +56,13 @@ void Processor::Run() {
 }
 
 void Processor::Stop() {
+    // 停止抽象CPU运行
     if(!running_.exchange(false)) return;
-
+    // 停止抽象CPU上下文获取协程句柄
     if(context_) context_->Shutdown();
-
+    // 唤醒陷入等待的抽象CPU线程
     cv_ctx_.notify_one();
-
+    // 等待线程执行完最后的事务
     if(thread_.joinable()) thread_.join();
 }
 
@@ -72,6 +74,9 @@ void Processor::BindContext(const std::shared_ptr<ProcessorContext>& context) {
     std::call_once(thread_flag_, [this]() { thread_ = std::thread(&Processor::Run, this); });
 }
 
+/**
+ * @brief 获取线程ID
+ */
 std::atomic<pid_t>& Processor::Tid() {
     while(tid_.load() == -1) {
         cpu_relax();

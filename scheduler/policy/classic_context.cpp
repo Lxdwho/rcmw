@@ -44,7 +44,6 @@ std::shared_ptr<CRoutine> ClassicContext::NextRoutine() {
     for(int i=MAX_PRIO-1; i>=0; --i) {
         /* 对group中的优先级i队列进行上锁 */
         ReadLockGuard<AtomicRWLock> lock(lq_->at(i));
-    // std::cout << "are you ok????????????????????? " << i << std::endl;
         for(auto& cr : mutil_pri_rq_->at(i)) {
             /* 尝试持有协程 */
             if(!cr->Acquire()) continue;
@@ -71,7 +70,8 @@ void ClassicContext::Wait() {
 }
 
 /**
- * @brief 关闭，唤醒所有Wait，设置notify_grp_[current_grp_] 为 55
+ * @brief 停止运行
+ * @details 关闭，唤醒所有Wait，设置notify_grp_[current_grp_] 为 255
  */
 void ClassicContext::Shutdown() {
     stop_.store(true);
