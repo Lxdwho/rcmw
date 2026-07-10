@@ -173,7 +173,7 @@ auto NodeChannelImpl::CreateSubscriber(const RoleAttributes& role_attr,
 template <typename MessageT>
 auto NodeChannelImpl::CreateSubscriber(const RoleAttributes& role_attr)
         ->std::shared_ptr<Subscriber<MessageT>> {
-    
+    return this->template CreateSubscriber<MessageT>(role_attr, nullptr);
 }
 
 template <typename MessageT>
@@ -181,13 +181,13 @@ void NodeChannelImpl::FillInAttr(RoleAttributes* attr) {
     attr->host_name = node_attr_.host_name;
     attr->host_ip = node_attr_.host_ip;
     attr->process_id = node_attr_.process_id;
-    attr->node_name = node_attr_.node_id;
+    attr->node_name = node_attr_.node_name;
     attr->node_id = node_attr_.node_id;
 
     auto channel_id = common::GlobalData::RegisterChannel(attr->channel_name);
     attr->channel_id = channel_id;
 }
-    
+
 } // rcmw
 } // hnu
 

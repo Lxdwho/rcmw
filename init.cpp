@@ -5,7 +5,12 @@
 
 #include "rcmw/init.h"
 #include "rcmw/common/global_data.h"
+#include "rcmw/scheduler/scheduler_factory.h"
+#include "rcmw/transport/transport.h"
+#include "rcmw/discovery/topology_manager.h"
+#include "rcmw/state.h"
 #include <string>
+#include <cstdlib>
 
 namespace hnu   {
 namespace rcmw  {
@@ -15,10 +20,22 @@ bool Init(const char* binary_name) {
     Logger_Init(logfile_name);
 
     auto global_data = common::GlobalData::Instance();
+
+    std::atexit([]{ 
+        Clear();  // 程序退出时自动执行
+    });
+    SetState(STATE_INITIALIZED);
     return true;
 }
 
-void Clear() {}
+void Clear() {
+    SetState(STATE_SHUTTING_DOWN);
+    scheduler::CleanUp();
+    transport::Transport::CleanUp();
+    discovery::TopologyManager::CleanUp();
+    SetState(STATE_SHUTDOWN);
+    AINFO << "all cleared";
+}
 
 std::unique_ptr<Node> CreateNode(const std::string& node_name, 
                                  const std::string& name_space) {
