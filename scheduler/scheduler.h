@@ -44,7 +44,7 @@ class ProcessorContext;
  */
 class Scheduler {
 public:
-    virtual ~Scheduler() {};
+    virtual ~Scheduler() {}
     static Scheduler* Instance();
 
     bool CreateTask(const RoutineFactory& factory, const std::string& name);

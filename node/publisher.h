@@ -138,8 +138,7 @@ bool Publisher<MessageT>::Publish(const MessageT& msg) {
 template <typename MessageT>
 bool Publisher<MessageT>::Publish(const std::shared_ptr<MessageT>& msg_ptr) {
     RETURN_VAL_IF(!PublisherBase::IsInit(), false);
-    transmitter_->Transmit(msg_ptr);
-    return true;
+    return transmitter_->Transmit(msg_ptr);
 }
 
 } // rcmw

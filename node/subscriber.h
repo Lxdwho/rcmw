@@ -116,6 +116,7 @@ bool Subscriber<MessageT>::Init() {
     }
 
     receiver_ = ReceiverManager<MessageT>::Instance()->GetReceiver(role_attr_);
+    this->role_attr_.id = receiver_->id().HashValue();
 
     channel_manager_ = discovery::TopologyManager::Instance()->channel_manager();
 
