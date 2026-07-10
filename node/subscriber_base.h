@@ -12,7 +12,7 @@
 #include <vector>
 #include "rcmw/config/RoleAttributes.h"
 #include "rcmw/common/macros.h"
-#include "rcmw/transport/tranport.h"
+#include "rcmw/transport/transport.h"
 #include "rcmw/transport/receiver/receiver.h"
 #include "rcmw/data/data_dispatcher.h"
 #include "rcmw/event/perf_event_cache.h"

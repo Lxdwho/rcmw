@@ -8,7 +8,7 @@
 
 #include <memory>
 #include "rcmw/node/publisher_base.h"
-#include "rcmw/transport/tranport.h"
+#include "rcmw/transport/transport.h"
 #include "rcmw/transport/transmitter/transmitter.h"
 #include "rcmw/discovery/topology_manager.h"
 #include "rcmw/logger/log.h"

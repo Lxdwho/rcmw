@@ -3,7 +3,7 @@
  * @date 2025.12.11
  */
 
-#include "tranport.h"
+#include "transport.h"
 
 namespace hnu       {
 namespace rcmw      {
@@ -15,9 +15,9 @@ Transport::Transport() {
     rtps_dispatcher_->set_participant(participant_);
 }
 
-Transport::~Transport() { shutdown(); }
+Transport::~Transport() { Shutdown(); }
 
-void Transport::shutdown() {
+void Transport::Shutdown() {
     if(is_shutdown_.exchange(true)) return;
     if(participant_ != nullptr) participant_->Shutdown();
     participant_ = nullptr;

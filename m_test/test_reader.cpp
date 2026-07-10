@@ -3,7 +3,7 @@
 #include "rcmw/transport/dispatcher/rtps_dispatcher.h"
 #include "rcmw/common/util.h"
 #include "rcmw/transport/receiver/receiver.h"
-#include "rcmw/transport/tranport.h"
+#include "rcmw/transport/transport.h"
 #include "rcmw/config/topology_change.h"
 #include "rcmw/logger/log.h"
 

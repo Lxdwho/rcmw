@@ -7,7 +7,7 @@
 #define _RCMW_NODE_SUBSCRIBER_H_
 
 #include "rcmw/node/subscriber_base.h"
-#include "rcmw/transport/tranport.h"
+#include "rcmw/transport/transport.h"
 #include "rcmw/transport/receiver/receiver.h"
 #include "rcmw/discovery/specific_manager/manager.h"
 #include "rcmw/discovery/specific_manager/channel_manager.h"

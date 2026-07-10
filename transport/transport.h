@@ -26,7 +26,7 @@ namespace transport {
 class Transport {
 public:
     virtual ~Transport();
-    void shutdown();
+    void Shutdown();
 
     template<typename M>
     auto CreateTransmitter(const RoleAttributes& attr,
