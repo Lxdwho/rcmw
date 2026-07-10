@@ -90,7 +90,7 @@ template <typename M>
 void ShmTransmitter<M>::Enable() {
     if(this->enabled_) return;
     if(receiver_count_.load() == 0) {
-        AERROR << "please enable shm transmitter by passing role attr.";
+        AWARN << "SHM transmitter not enabled: waiting for subscriber to register.";
         return;
     }
     segment_ = SegmentFactory::CreateSegment(channel_id_);
