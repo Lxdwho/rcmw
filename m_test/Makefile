@@ -14,14 +14,14 @@
 CC      := g++
 CFLAGS  := -std=c++14 -MMD -MP
 DEBUG   := -g
-INCLUDE := -I/home/mi/Fast-DDS/install/include \
-           -I/home/mi/googletest/install/include \
+INCLUDE := -I$(CURDIR)/../thirdparty/Fast-DDS/include \
+           -I$(CURDIR)/../thirdparty/googletest/include \
            -I../../ \
            -I../ \
            -I../thirdparty/
 
-ThirdPartyLibPath := -L/home/mi/Fast-DDS/install/lib \
-                     -L/home/mi/googletest/install/lib
+ThirdPartyLibPath := -L$(CURDIR)/../thirdparty/Fast-DDS/lib \
+                     -L$(CURDIR)/../thirdparty/googletest/lib
 
 ThirdPartyLib := -lfastrtps -lfastcdr -lfoonathan_memory-0.7.4 \
                  -lpthread -luuid -lrt -latomic -lgtest -lgtest_main -ldl
