@@ -6,7 +6,7 @@
 #ifndef _DISCOVERY_ROLE_H_
 #define _DISCOVERY_ROLE_H_
 
-#include "rcmw/config/RoleAttributes.h"
+#include "config/RoleAttributes.h"
 #include <cstdint>
 #include <memory>
 #include <string>

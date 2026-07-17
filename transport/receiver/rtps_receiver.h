@@ -7,7 +7,7 @@
 #define _TRANSPORT_RTPS_RECEIVER_H_
 
 #include "receiver.h"
-#include "rcmw/transport/dispatcher/rtps_dispatcher.h"
+#include "transport/dispatcher/rtps_dispatcher.h"
 
 namespace hnu       {
 namespace rcmw      {

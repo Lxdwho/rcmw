@@ -1,0 +1,3 @@
+build --linkopt=-luuid
+build --linkopt=-latomic
+

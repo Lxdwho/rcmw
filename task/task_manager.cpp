@@ -3,10 +3,10 @@
  * @date 2026.01.06
  */
 
-#include "rcmw/task/task_manager.h"
-#include "rcmw/croutine/croutine.h"
-#include "rcmw/croutine/croutine_factory.h"
-#include "rcmw/scheduler/scheduler_factory.h"
+#include "task/task_manager.h"
+#include "croutine/croutine.h"
+#include "croutine/croutine_factory.h"
+#include "scheduler/scheduler_factory.h"
 
 namespace hnu   {
 namespace rcmw  {

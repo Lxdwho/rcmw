@@ -12,9 +12,9 @@
 #include <tuple>
 #include <vector>
 
-#include "rcmw/data/data_fusion/data_fusion.h"
-#include "rcmw/data/buffer/channel_buffer.h"
-#include "rcmw/logger/log.h"
+#include "data/data_fusion/data_fusion.h"
+#include "data/buffer/channel_buffer.h"
+#include "logger/log.h"
 
 namespace hnu   {
 namespace rcmw  {

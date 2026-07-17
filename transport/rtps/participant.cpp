@@ -7,7 +7,7 @@
 #include "fastrtps/rtps/RTPSDomain.h"
 #include "fastrtps/rtps/attributes/RTPSParticipantAttributes.h"
 #include "fastrtps/rtps/participant/RTPSParticipant.h"
-#include "rcmw/common/environment.h"
+#include "common/environment.h"
 
 namespace hnu       {
 namespace rcmw      {
@@ -21,8 +21,8 @@ Participant::Participant(const std::string& name, int send_port,
       : shutdown_(false), 
         name_(name), 
         send_port_(send_port), 
-        listener_(listener),
-        fastrtps_participant_(nullptr) {}
+        fastrtps_participant_(nullptr),
+        listener_(listener) {}
 
 Participant::~Participant() {}
 

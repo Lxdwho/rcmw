@@ -10,3 +10,4 @@ m_test/obj
 .claude
 thirdparty/Fast-DDS
 thirdparty/googletest
+bazel*

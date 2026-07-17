@@ -7,8 +7,8 @@
 #define _ROLEATTRIBUTES_H_
 
 #include "qos_profile.h"
-#include "rcmw/serialize/serializable.h"
-#include "rcmw/serialize/data_stream.h"
+#include "serialize/serializable.h"
+#include "serialize/data_stream.h"
 #include <string>
 
 namespace hnu    {

@@ -3,8 +3,8 @@
  * @date 2025.11.10
  */
 
-#include "rcmw/transport/rtps/attributes_filler.h"
-#include "rcmw/transport/qos/qos_profile_conf.h"
+#include "transport/rtps/attributes_filler.h"
+#include "transport/qos/qos_profile_conf.h"
 
 namespace hnu       {
 namespace rcmw      {

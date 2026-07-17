@@ -5,11 +5,11 @@
 
 #include <memory>
 #include <utility>
-#include "rcmw/common/global_data.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/croutine/croutine.h"
-#include "rcmw/data/data_visitor/data_visitor.h"
-#include "rcmw/event/perf_event_cache.h"
+#include "common/global_data.h"
+#include "logger/log.h"
+#include "croutine/croutine.h"
+#include "data/data_visitor/data_visitor.h"
+#include "event/perf_event_cache.h"
 
 #ifndef _RCMW_CROUTINE_FACTORY_H_
 #define _RCMW_CROUTINE_FACTORY_H_

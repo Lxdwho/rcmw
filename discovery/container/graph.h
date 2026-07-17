@@ -9,7 +9,7 @@
 #include <cstdint>
 #include <string>
 #include <unordered_map>
-#include "rcmw/base/atomic_rw_lock.h"
+#include "base/atomic_rw_lock.h"
 
 namespace hnu       {
 namespace rcmw      {
@@ -61,8 +61,8 @@ public:
     const std::string& value() const { return value_; }
     void set_value(const std::string& val) { value_ = val; }
 private:
-    Vertice src_;
     Vertice dst_;
+    Vertice src_;
     std::string value_;
 };
 

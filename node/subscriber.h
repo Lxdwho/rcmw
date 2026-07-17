@@ -6,15 +6,15 @@
 #ifndef _RCMW_NODE_SUBSCRIBER_H_
 #define _RCMW_NODE_SUBSCRIBER_H_
 
-#include "rcmw/node/subscriber_base.h"
-#include "rcmw/transport/transport.h"
-#include "rcmw/transport/receiver/receiver.h"
-#include "rcmw/discovery/specific_manager/manager.h"
-#include "rcmw/discovery/specific_manager/channel_manager.h"
-#include "rcmw/discovery/topology_manager.h"
-#include "rcmw/scheduler/scheduler_factory.h"
-#include "rcmw/croutine/croutine_factory.h"
-#include "rcmw/blocker/blocker.h"
+#include "node/subscriber_base.h"
+#include "transport/transport.h"
+#include "transport/receiver/receiver.h"
+#include "discovery/specific_manager/manager.h"
+#include "discovery/specific_manager/channel_manager.h"
+#include "discovery/topology_manager.h"
+#include "scheduler/scheduler_factory.h"
+#include "croutine/croutine_factory.h"
+#include "blocker/blocker.h"
 
 namespace hnu   {
 namespace rcmw  {
@@ -78,8 +78,8 @@ template <typename MessageT>
 Subscriber<MessageT>::Subscriber(const RoleAttributes& role_attr,
             const CallbackFunc<MessageT>& subscriber_func,
             uint32_t pending_queue_size) 
-            : SubscriberBase(role_attr), subscriber_func_(subscriber_func), 
-              pending_queue_size_(pending_queue_size) {
+            : SubscriberBase(role_attr), pending_queue_size_(pending_queue_size),
+              subscriber_func_(subscriber_func) {
     blocker_.reset(new blocker::Blocker<MessageT>(blocker::BlockerAttr(
         role_attr.qos_profile.depth, role_attr.channel_name
     )));

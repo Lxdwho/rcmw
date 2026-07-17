@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include <atomic>
 #include "notifier_base.h"
-#include "rcmw/common/macros.h"
+#include "common/macros.h"
 
 namespace hnu       {
 namespace rcmw      {

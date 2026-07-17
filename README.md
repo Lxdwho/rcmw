@@ -33,7 +33,7 @@ source ev.sh
 ### 消息定义
 
 ```cpp
-#include "rcmw/serialize/serializable.h"
+#include "serialize/serializable.h"
 
 struct HelloMsg : public Serializable {
     uint64_t seq;
@@ -45,8 +45,8 @@ struct HelloMsg : public Serializable {
 ### 发布者
 
 ```cpp
-#include "rcmw/init.h"
-#include "rcmw/node/node.h"
+#include "init.h"
+#include "node/node.h"
 
 int main() {
     hnu::rcmw::Init("pub_app");
@@ -72,8 +72,8 @@ int main() {
 ### 订阅者
 
 ```cpp
-#include "rcmw/init.h"
-#include "rcmw/node/node.h"
+#include "init.h"
+#include "node/node.h"
 
 int main() {
     hnu::rcmw::Init("sub_app");

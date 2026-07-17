@@ -10,8 +10,8 @@
 #include <string>
 #include <sstream>
 #include <limits>
-#include "rcmw/common/global_data.h"
-#include "rcmw/common/macros.h"
+#include "common/global_data.h"
+#include "common/macros.h"
 
 namespace hnu   {
 namespace rcmw  {

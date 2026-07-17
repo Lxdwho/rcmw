@@ -15,7 +15,7 @@
 #include "fastrtps/qos/ReaderQos.h"
 #include "fastrtps/attributes/TopicAttributes.h"
 #include "fastrtps/rtps/attributes/HistoryAttributes.h"
-#include "rcmw/config/qos_profile.h"
+#include "config/qos_profile.h"
 
 using namespace eprosima::fastrtps;
 using namespace eprosima::fastrtps::rtps;

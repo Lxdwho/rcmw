@@ -4,7 +4,7 @@
  */
 
 #include "xsi_segment.h"
-#include "rcmw/logger/log.h"
+#include "logger/log.h"
 #include <sys/shm.h>
 #include <sys/ipc.h>
 

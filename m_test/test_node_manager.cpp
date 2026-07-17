@@ -2,7 +2,7 @@
 #include <memory>
 #include <rcmw/config/RoleAttributes.h>
 #include <rcmw/common/global_data.h>
-#include "rcmw/logger/log.h"
+#include "logger/log.h"
 using namespace hnu::rcmw::discovery;
 using namespace hnu::rcmw::config;
 using namespace hnu::rcmw::common;

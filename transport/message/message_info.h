@@ -6,7 +6,7 @@
 #ifndef _MESSAGE_INFO_H_
 #define _MESSAGE_INFO_H_
 
-#include "rcmw/transport/common/identity.h"
+#include "transport/common/identity.h"
 
 namespace hnu       {
 namespace rcmw      {

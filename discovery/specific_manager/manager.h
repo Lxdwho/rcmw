@@ -10,9 +10,9 @@
 #include <functional>
 #include <mutex>
 #include <string>
-#include "rcmw/base/signal_slot.h"
-#include "rcmw/config/topology_change.h"
-#include "rcmw/discovery/communication/reader_listener.h"
+#include "base/signal_slot.h"
+#include "config/topology_change.h"
+#include "discovery/communication/reader_listener.h"
 #include "fastrtps/rtps/reader/RTPSReader.h"
 #include "fastrtps/rtps/writer/RTPSWriter.h"
 #include "fastrtps/rtps/rtps_fwd.h"

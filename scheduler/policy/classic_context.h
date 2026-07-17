@@ -13,11 +13,11 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include "rcmw/base/atomic_rw_lock.h"
-#include "rcmw/croutine/croutine.h"
-#include "rcmw/scheduler/common/cv_wrapper.h"
-#include "rcmw/scheduler/common/mutex_wrapper.h"
-#include "rcmw/scheduler/processor_context.h"
+#include "base/atomic_rw_lock.h"
+#include "croutine/croutine.h"
+#include "scheduler/common/cv_wrapper.h"
+#include "scheduler/common/mutex_wrapper.h"
+#include "scheduler/processor_context.h"
 
 namespace hnu       {
 namespace rcmw      {

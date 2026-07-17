@@ -3,7 +3,7 @@
  * @date 2025.12.27
  */
 
-#include "rcmw/scheduler/common/pin_thread.h"
+#include "scheduler/common/pin_thread.h"
 #include <sched.h>
 #include <sys/resource.h>
 #include <cstring>

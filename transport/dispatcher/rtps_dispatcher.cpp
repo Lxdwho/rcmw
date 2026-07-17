@@ -4,7 +4,7 @@
  */
 
 #include "rtps_dispatcher.h"
-#include "rcmw/transport/rtps/attributes_filler.h"
+#include "transport/rtps/attributes_filler.h"
 #include "fastrtps/rtps/RTPSDomain.h"
 #include "fastrtps/rtps/reader/RTPSReader.h"
 
@@ -63,7 +63,7 @@ void RtpsDispatcher::AddReader(const RoleAttributes& self_attr) {
                         reader_attr.ratt, new_reader.mp_history, 
                         new_reader.reader_listener.get());
 
-    bool reg = participant_->fastrtps_participant()->registerReader(
+    [[maybe_unused]] bool reg = participant_->fastrtps_participant()->registerReader(
                             new_reader.reader, reader_attr.tatt, reader_attr.rqos);
     readers_[channel_id] = new_reader;
 }

@@ -4,7 +4,7 @@
  */
 
 #include "identity.h"
-#include "rcmw/common/util.h"
+#include "common/util.h"
 #include <uuid/uuid.h>
 
 namespace hnu       {

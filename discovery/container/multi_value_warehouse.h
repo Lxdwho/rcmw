@@ -9,8 +9,8 @@
 #include <cstdint>
 #include <unordered_map>
 #include <vector>
-#include "rcmw/base/atomic_rw_lock.h"
-#include "rcmw/discovery/container/warehouse_base.h"
+#include "base/atomic_rw_lock.h"
+#include "discovery/container/warehouse_base.h"
 
 namespace hnu       {
 namespace rcmw      {

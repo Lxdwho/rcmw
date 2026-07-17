@@ -3,9 +3,9 @@
  * @date 2025.12.18
  */
 
-#include "rcmw/discovery/specific_manager/node_manager.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/common/global_data.h"
+#include "discovery/specific_manager/node_manager.h"
+#include "logger/log.h"
+#include "common/global_data.h"
 
 namespace hnu       {
 namespace rcmw      {

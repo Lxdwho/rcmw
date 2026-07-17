@@ -8,7 +8,7 @@
 
 #include <cstdint>
 #include <unordered_map>
-#include "rcmw/discovery/role/role.h"
+#include "discovery/role/role.h"
 
 namespace hnu       {
 namespace rcmw      {

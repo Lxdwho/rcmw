@@ -3,7 +3,7 @@
  * @date 2025.12.15
  */
 
-#include "rcmw/discovery/role/role.h"
+#include "discovery/role/role.h"
 
 namespace hnu       {
 namespace rcmw      {

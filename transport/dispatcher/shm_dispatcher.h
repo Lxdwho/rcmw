@@ -7,13 +7,13 @@
 #define _TRANSPORT_SHMDISPATCH_H_
 
 #include "dispatcher.h"
-#include "rcmw/transport/shm/segment.h"
-#include "rcmw/base/atomic_rw_lock.h"
-#include "rcmw/base/rw_lock_guard.h"
-#include "rcmw/transport/shm/notifier_base.h"
-#include "rcmw/base/macros.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/serialize/serializable.h"
+#include "transport/shm/segment.h"
+#include "base/atomic_rw_lock.h"
+#include "base/rw_lock_guard.h"
+#include "transport/shm/notifier_base.h"
+#include "base/macros.h"
+#include "logger/log.h"
+#include "serialize/serializable.h"
 
 namespace hnu       {
 namespace rcmw      {

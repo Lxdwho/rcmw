@@ -8,8 +8,8 @@
 
 #include <functional>
 #include <memory>
-#include "rcmw/transport/common/endpoint.h"
-#include "rcmw/transport/message/message_info.h"
+#include "transport/common/endpoint.h"
+#include "transport/message/message_info.h"
 
 namespace hnu       {
 namespace rcmw      {

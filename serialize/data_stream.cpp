@@ -81,6 +81,7 @@ void DataStream::show() const {
         case DataStream::VECTOR:
             if((DataType)m_buf[++i] == DataType::INT32) {
                 int len = *((int *)(&m_buf[++i]));
+                std::cout << std::string(&m_buf[i], len);
                 i += 4;
             }
             else {
@@ -90,6 +91,7 @@ void DataStream::show() const {
         case DataStream::MAP:
             if((DataType)m_buf[++i] == DataType::INT32) {
                 int len = *((int *)(&m_buf[++i]));
+                std::cout << std::string(&m_buf[i], len);
                 i += 4;
             }
             else {
@@ -99,6 +101,7 @@ void DataStream::show() const {
         case DataStream::SET:
             if((DataType)m_buf[++i] == DataType::INT32) {
                 int len = *((int *)(&m_buf[++i]));
+                std::cout << std::string(&m_buf[i], len);
                 i += 4;
             }
             else {

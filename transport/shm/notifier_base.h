@@ -6,7 +6,7 @@
 #ifndef _NOTIFIER_BASE_H_
 #define _NOTIFIER_BASE_H_
 
-#include "rcmw/transport/shm/readable_info.h"
+#include "transport/shm/readable_info.h"
 
 namespace hnu       {
 namespace rcmw      {

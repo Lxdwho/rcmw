@@ -7,8 +7,8 @@
 #define _TRANSPORT_SHM_TRANSPORT_H_
 
 #include "receiver.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/transport/dispatcher/shm_dispatcher.h"
+#include "logger/log.h"
+#include "transport/dispatcher/shm_dispatcher.h"
 #include <functional>
 
 namespace hnu       {

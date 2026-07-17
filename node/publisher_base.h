@@ -10,7 +10,7 @@
 #include <mutex>
 #include <string>
 #include <vector>
-#include "rcmw/config/RoleAttributes.h"
+#include "config/RoleAttributes.h"
 
 namespace hnu   {
 namespace rcmw  {

@@ -7,11 +7,11 @@
 #define _SHM_TRANSMITTER_H_
 
 #include "transmitter.h"
-#include "rcmw/transport/shm/segment_factory.h"
-#include "rcmw/transport/shm/notifier_factory.h"
-#include "rcmw/transport/common/endpoint.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/time/time.h"
+#include "transport/shm/segment_factory.h"
+#include "transport/shm/notifier_factory.h"
+#include "transport/common/endpoint.h"
+#include "logger/log.h"
+#include "time/time.h"
 #include <cstring>
 
 namespace hnu       {
@@ -40,8 +40,8 @@ private:
     SegmentPtr segment_;    // 准备写的共享内存
     uint64_t channel_id_;   // 发送的通道、话题
     uint64_t host_id_;      // 发送主机ID
-    NotifierPtr notifier_;  // 发送notifier
     std::atomic<int> receiver_count_;
+    NotifierPtr notifier_;  // 发送notifier
 };
 
 /**

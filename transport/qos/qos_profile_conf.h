@@ -6,7 +6,7 @@
 #ifndef _QOS_PROFILE_CONF_H_
 #define _QOS_PROFILE_CONF_H_
 
-#include "rcmw/config/qos_profile.h"
+#include "config/qos_profile.h"
 
 namespace hnu       {
 namespace rcmw      {

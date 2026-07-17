@@ -14,14 +14,14 @@
  * limitations under the License.
  *****************************************************************************/
 
-#include "rcmw/data/buffer/channel_buffer.h"
+#include "data/buffer/channel_buffer.h"
 
 #include <memory>
 #include <vector>
 
 #include "gtest/gtest.h"
 
-#include "rcmw/common/util.h"
+#include "common/util.h"
 
 namespace hnu {
 namespace rcmw {

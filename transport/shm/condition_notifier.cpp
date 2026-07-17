@@ -4,8 +4,8 @@
  */
 
 #include "condition_notifier.h"
-#include "rcmw/common/util.h"
-#include "rcmw/logger/log.h"
+#include "common/util.h"
+#include "logger/log.h"
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <string>

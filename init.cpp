@@ -3,12 +3,12 @@
  * @date 2025.12.27
  */
 
-#include "rcmw/init.h"
-#include "rcmw/common/global_data.h"
-#include "rcmw/scheduler/scheduler_factory.h"
-#include "rcmw/transport/transport.h"
-#include "rcmw/discovery/topology_manager.h"
-#include "rcmw/state.h"
+#include "init.h"
+#include "common/global_data.h"
+#include "scheduler/scheduler_factory.h"
+#include "transport/transport.h"
+#include "discovery/topology_manager.h"
+#include "state.h"
 #include <string>
 #include <cstdlib>
 
@@ -19,7 +19,7 @@ bool Init(const char* binary_name) {
     std::string logfile_name = (std::string)binary_name + ".log";
     Logger_Init(logfile_name);
 
-    auto global_data = common::GlobalData::Instance();
+    [[maybe_unused]] auto global_data = common::GlobalData::Instance();
 
     std::atexit([]{ 
         Clear();  // 程序退出时自动执行

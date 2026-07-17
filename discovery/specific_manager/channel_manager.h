@@ -6,11 +6,11 @@
 #ifndef _DISCOVERY_CHANNEL_MANAGER_H_
 #define _DISCOVERY_CHANNEL_MANAGER_H_
 
-#include "rcmw/discovery/specific_manager/manager.h"
-#include "rcmw/discovery/container/graph.h"
-#include "rcmw/discovery/container/single_value_warehouse.h"
-#include "rcmw/discovery/container/multi_value_warehouse.h"
-#include "rcmw/discovery/role/role.h"
+#include "discovery/specific_manager/manager.h"
+#include "discovery/container/graph.h"
+#include "discovery/container/single_value_warehouse.h"
+#include "discovery/container/multi_value_warehouse.h"
+#include "discovery/role/role.h"
 #include <unordered_set>
 #include <vector>
 

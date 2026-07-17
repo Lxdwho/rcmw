@@ -8,7 +8,7 @@
 
 #include "fastrtps/rtps/reader/ReaderListener.h"
 #include "fastrtps/rtps/rtps_fwd.h"
-#include "rcmw/transport/message/message_info.h"
+#include "transport/message/message_info.h"
 #include <mutex>
 #include <functional>
 #include <memory>

@@ -3,10 +3,10 @@
  * @date 2025.12.19
  */
 
-#include "rcmw/discovery/topology_manager.h"
-#include "rcmw/common/global_data.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/time/time.h"
+#include "discovery/topology_manager.h"
+#include "common/global_data.h"
+#include "logger/log.h"
+#include "time/time.h"
 
 namespace hnu       {
 namespace rcmw      {

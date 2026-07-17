@@ -1,0 +1,9 @@
+# rcmw Begin
+module(name = "rcmw", version = "0.1.0")
+
+# ============================================================
+# BCR 上有的依赖，直接声明
+# ============================================================
+bazel_dep(name = "rules_cc", version = "0.2.17")
+# bazel_dep(name = "rules_foreign_cc", version = "0.12.0")
+

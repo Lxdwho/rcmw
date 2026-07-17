@@ -3,7 +3,7 @@
  * @date 2025.12.27
  */
 
-#include "rcmw/scheduler/processor_context.h"
+#include "scheduler/processor_context.h"
 
 namespace hnu       {
 namespace rcmw      {

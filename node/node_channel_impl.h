@@ -8,9 +8,9 @@
 
 #include <memory>
 #include <string>
-#include "rcmw/common/global_data.h"
-#include "rcmw/node/publisher.h"
-#include "rcmw/node/subscriber.h"
+#include "common/global_data.h"
+#include "node/publisher.h"
+#include "node/subscriber.h"
 
 namespace hnu   {
 namespace rcmw  {

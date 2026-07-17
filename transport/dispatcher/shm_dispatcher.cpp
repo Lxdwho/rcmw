@@ -4,10 +4,10 @@
  */
 
 #include "shm_dispatcher.h"
-#include "rcmw/common/global_data.h"
-#include "rcmw/common/util.h"
-#include "rcmw/transport/shm/notifier_factory.h"
-#include "rcmw/transport/shm/segment_factory.h"
+#include "common/global_data.h"
+#include "common/util.h"
+#include "transport/shm/notifier_factory.h"
+#include "transport/shm/segment_factory.h"
 
 namespace hnu       {
 namespace rcmw      {

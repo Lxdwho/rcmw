@@ -7,17 +7,17 @@
 #define _TRANSPORT_TRANSPORT_H_
 
 #include "rtps/participant.h"
-#include "rcmw/common/macros.h"
-#include "rcmw/config/transport_conf.h"
-#include "rcmw/config/RoleAttributes.h"
-#include "rcmw/transport/transmitter/transmitter.h"
-#include "rcmw/transport/transmitter/rtps_transmitter.h"
-#include "rcmw/transport/transmitter/shm_transmitter.h"
-#include "rcmw/transport/receiver/receiver.h"
-#include "rcmw/transport/receiver/shm_receiver.h"
-#include "rcmw/transport/receiver/rtps_receiver.h"
-#include "rcmw/transport/dispatcher/rtps_dispatcher.h"
-#include "rcmw/logger/log.h"
+#include "common/macros.h"
+#include "config/transport_conf.h"
+#include "config/RoleAttributes.h"
+#include "transport/transmitter/transmitter.h"
+#include "transport/transmitter/rtps_transmitter.h"
+#include "transport/transmitter/shm_transmitter.h"
+#include "transport/receiver/receiver.h"
+#include "transport/receiver/shm_receiver.h"
+#include "transport/receiver/rtps_receiver.h"
+#include "transport/dispatcher/rtps_dispatcher.h"
+#include "logger/log.h"
 
 namespace hnu       {
 namespace rcmw      {

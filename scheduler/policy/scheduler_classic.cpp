@@ -3,14 +3,14 @@
  * @date 2025.12.30
  */
 
-#include "rcmw/scheduler/policy/scheduler_classic.h"
-#include "rcmw/scheduler/policy/classic_context.h"
-#include "rcmw/scheduler/processor.h"
-#include "rcmw/common/global_data.h"
-#include "rcmw/common/environment.h"
-#include "rcmw/config/conf_parse.h"
-#include "rcmw/config/rcmw_conf.h"
-#include "rcmw/common/file.h"
+#include "scheduler/policy/scheduler_classic.h"
+#include "scheduler/policy/classic_context.h"
+#include "scheduler/processor.h"
+#include "common/global_data.h"
+#include "common/environment.h"
+#include "config/conf_parse.h"
+#include "config/rcmw_conf.h"
+#include "common/file.h"
 
 namespace hnu       {
 namespace rcmw      {

@@ -7,7 +7,7 @@
 #define _PERF_EVENT_CACHE_H_
 
 #include "perf_event.h"
-#include "rcmw/base/bounded_queue.h"
+#include "base/bounded_queue.h"
 #include <string>
 #include <thread>
 #include <fstream>

@@ -7,8 +7,8 @@
 #define _TOPOLOGY_CHANGE_H_
 
 #include <cstdint>
-#include "rcmw/serialize/serializable.h"
-#include "rcmw/serialize/data_stream.h"
+#include "serialize/serializable.h"
+#include "serialize/data_stream.h"
 #include "RoleAttributes.h"
 
 namespace hnu    {

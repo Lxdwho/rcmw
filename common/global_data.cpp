@@ -7,11 +7,11 @@
 #include <ifaddrs.h>
 #include <netdb.h>
 #include "global_data.h"
-#include "rcmw/common/file.h"
-#include "rcmw/common/util.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/config/conf_parse.h"
-#include "rcmw/common/environment.h"
+#include "common/file.h"
+#include "common/util.h"
+#include "logger/log.h"
+#include "config/conf_parse.h"
+#include "common/environment.h"
 
 namespace hnu    {
 namespace rcmw   {

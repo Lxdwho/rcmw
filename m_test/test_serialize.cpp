@@ -1,11 +1,11 @@
 #include <iostream>
 
 using namespace std;
-#include "rcmw/serialize/data_stream.h"
-#include "rcmw/serialize/serializable.h"
+#include "serialize/data_stream.h"
+#include "serialize/serializable.h"
 #include <vector>
-#include "rcmw/config/topology_change.h"
-#include "rcmw/config/qos_profile.h"
+#include "config/topology_change.h"
+#include "config/qos_profile.h"
 using namespace hnu::rcmw::serialize;
 
 using namespace hnu::rcmw::config;

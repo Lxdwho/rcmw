@@ -6,14 +6,14 @@
 #ifndef _DISCOVERY_TOPOLOGY_MANAGER_H_
 #define _DISCOVERY_TOPOLOGY_MANAGER_H_
 
-#include "rcmw/discovery/specific_manager/channel_manager.h"
-#include "rcmw/discovery/specific_manager/node_manager.h"
-#include "rcmw/base/signal_slot.h"
-#include "rcmw/config/topology_change.h"
-#include "rcmw/transport/rtps/participant.h"
-#include "rcmw/discovery/communication/participant_listener.h"
+#include "discovery/specific_manager/channel_manager.h"
+#include "discovery/specific_manager/node_manager.h"
+#include "base/signal_slot.h"
+#include "config/topology_change.h"
+#include "transport/rtps/participant.h"
+#include "discovery/communication/participant_listener.h"
 #include "fastrtps/rtps/participant/ParticipantDiscoveryInfo.h"
-#include "rcmw/common/macros.h"
+#include "common/macros.h"
 #include <functional>
 #include <atomic>
 

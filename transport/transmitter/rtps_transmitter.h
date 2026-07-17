@@ -9,12 +9,12 @@
 #include <memory>
 #include <string>
 #include "transmitter.h"
-#include "rcmw/config/RoleAttributes.h"
-#include "rcmw/transport/rtps/participant.h"
-#include "rcmw/transport/rtps/attributes_filler.h"
+#include "config/RoleAttributes.h"
+#include "transport/rtps/participant.h"
+#include "transport/rtps/attributes_filler.h"
 #include "fastrtps/rtps/RTPSDomain.h"
-#include "rcmw/serialize/data_stream.h"
-#include "rcmw/logger/log.h"
+#include "serialize/data_stream.h"
+#include "logger/log.h"
 using namespace eprosima::fastrtps::rtps;
 using namespace eprosima::fastrtps;
 

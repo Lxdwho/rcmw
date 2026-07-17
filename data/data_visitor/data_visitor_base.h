@@ -10,9 +10,9 @@
 #include <functional>
 #include <memory>
 #include <vector>
-#include "rcmw/common/global_data.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/data/data_notifier.h"
+#include "common/global_data.h"
+#include "logger/log.h"
+#include "data/data_notifier.h"
 
 namespace hnu   {
 namespace rcmw  {

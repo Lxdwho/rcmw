@@ -1,0 +1,13 @@
+# Copyright 2025 rcmw project
+#
+# Blocker utilities for the rcmw middleware.
+# Includes: 
+
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "blocker_manager",
+    srcs = ["blocker_manager.cpp"],
+    hdrs = ["blocker_manager.h","blocker.h"],
+    visibility = ["//visibility:public"],
+)

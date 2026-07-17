@@ -6,11 +6,11 @@
 #ifndef _GLOBAL_DATA_H_
 #define _GLOBAL_DATA_H_
 
-#include "rcmw/base/atomic_hash_map.h"
-#include "rcmw/base/atomic_rw_lock.h"
-#include "rcmw/common/macros.h"
-#include "rcmw/common/util.h"
-#include "rcmw/config/rcmw_conf.h"
+#include "base/atomic_hash_map.h"
+#include "base/atomic_rw_lock.h"
+#include "common/macros.h"
+#include "common/util.h"
+#include "config/rcmw_conf.h"
 #include <string>
 
 namespace hnu    {

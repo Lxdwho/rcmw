@@ -3,8 +3,8 @@
  * @date 2025.12.16
  */
 
-#include "rcmw/discovery/communication/reader_listener.h"
-#include "rcmw/logger/log.h"
+#include "discovery/communication/reader_listener.h"
+#include "logger/log.h"
 
 namespace hnu       {
 namespace rcmw      {

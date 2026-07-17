@@ -1,5 +1,5 @@
-#include "rcmw/croutine/croutine.h"
-#include "rcmw/common/global_data.h"
+#include "croutine/croutine.h"
+#include "common/global_data.h"
 #include "gtest/gtest.h"
 
 #include <atomic>

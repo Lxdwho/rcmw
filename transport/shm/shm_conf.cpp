@@ -4,7 +4,7 @@
  */
 
 #include "shm_conf.h"
-#include "rcmw/logger/log.h"
+#include "logger/log.h"
 
 namespace hnu       {
 namespace rcmw      {

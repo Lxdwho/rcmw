@@ -7,11 +7,11 @@
 #define _RCMW_NODE_PUBLISHER_H_
 
 #include <memory>
-#include "rcmw/node/publisher_base.h"
-#include "rcmw/transport/transport.h"
-#include "rcmw/transport/transmitter/transmitter.h"
-#include "rcmw/discovery/topology_manager.h"
-#include "rcmw/logger/log.h"
+#include "node/publisher_base.h"
+#include "transport/transport.h"
+#include "transport/transmitter/transmitter.h"
+#include "discovery/topology_manager.h"
+#include "logger/log.h"
 
 namespace hnu   {
 namespace rcmw  {
@@ -102,7 +102,7 @@ template <typename MessageT>
 void Publisher<MessageT>::JoinTheTopology() {
     change_conn_ = channel_manager_->AddChangeListener(std::bind(
         &Publisher<MessageT>::OnChannelChange, this, std::placeholders::_1));
-    const std::string& channel_name = this->role_attr_.channel_name;
+    [[maybe_unused]] const std::string& channel_name = this->role_attr_.channel_name;
     channel_manager_->Join(this->role_attr_, RoleType::ROLE_WRITER);
 }
 

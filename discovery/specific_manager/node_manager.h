@@ -6,9 +6,9 @@
 #ifndef _DISCOVERY_NODE_MANAGER_H_
 #define _DISCOVERY_NODE_MANAGER_H_
 
-#include "rcmw/discovery/specific_manager/manager.h"
-#include "rcmw/discovery/container/single_value_warehouse.h"
-#include "rcmw/discovery/role/role.h"
+#include "discovery/specific_manager/manager.h"
+#include "discovery/container/single_value_warehouse.h"
+#include "discovery/role/role.h"
 #include <memory>
 #include <string>
 #include <vector>

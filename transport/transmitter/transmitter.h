@@ -8,9 +8,9 @@
 
 #include <cstdint>
 #include <memory>
-#include "rcmw/transport/common/endpoint.h"
-#include "rcmw/transport/message/message_info.h"
-#include "rcmw/event/perf_event_cache.h"
+#include "transport/common/endpoint.h"
+#include "transport/message/message_info.h"
+#include "event/perf_event_cache.h"
 
 namespace hnu       {
 namespace rcmw      {

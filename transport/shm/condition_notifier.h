@@ -8,7 +8,7 @@
 
 #include "notifier_base.h"
 #include <atomic>
-#include "rcmw/common/macros.h"
+#include "common/macros.h"
 
 namespace hnu       {
 namespace rcmw      {

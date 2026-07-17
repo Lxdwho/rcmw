@@ -4,7 +4,7 @@
  */
 
 #include "message_info.h"
-#include "rcmw/logger/log.h"
+#include "logger/log.h"
 
 namespace hnu       {
 namespace rcmw      {
@@ -17,15 +17,15 @@ const std::size_t MessageInfo::Ksize = 2 * ID_SIZE + sizeof(uint64_t);
 MessageInfo::MessageInfo() : sender_id_(false), spare_id_(false) {}
 
 MessageInfo::MessageInfo(const Identity& sender_id, uint64_t seq_num) :
-    sender_id_(sender_id), seq_num_(seq_num), spare_id_(false) {}
+    sender_id_(sender_id), spare_id_(false), seq_num_(seq_num) {}
 
 MessageInfo::MessageInfo(const Identity& sender_id, 
     uint64_t seq_num, const Identity& spare_id) : 
-    sender_id_(sender_id), seq_num_(seq_num), spare_id_(spare_id) {}
+    sender_id_(sender_id), spare_id_(spare_id), seq_num_(seq_num) {}
 
 MessageInfo::MessageInfo(const MessageInfo& other) :
-    sender_id_(other.sender_id_), channel_id_(other.channel_id_),
-    seq_num_(other.seq_num_), spare_id_(other.spare_id_) {}
+    sender_id_(other.sender_id_), spare_id_(other.spare_id_),
+    channel_id_(other.channel_id_), seq_num_(other.seq_num_) {}
 
 MessageInfo::~MessageInfo() {}
 

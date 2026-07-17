@@ -21,8 +21,8 @@
 #include <mutex>
 #include <condition_variable>
 
-#include "rcmw/croutine/croutine.h"
-#include "rcmw/common/global_data.h"
+#include "croutine/croutine.h"
+#include "common/global_data.h"
 
 using namespace hnu::rcmw::croutine;
 using namespace hnu::rcmw::common;

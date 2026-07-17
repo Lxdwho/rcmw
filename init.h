@@ -6,9 +6,9 @@
 #ifndef _RCMW_INIT_H_
 #define _RCMW_INIT_H_
 
-#include "rcmw/logger/log.h"
-#include "rcmw/state.h"
-#include "rcmw/node/node.h"
+#include "logger/log.h"
+#include "state.h"
+#include "node/node.h"
 
 namespace hnu   {
 namespace rcmw  {

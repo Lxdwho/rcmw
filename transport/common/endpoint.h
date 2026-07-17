@@ -7,7 +7,7 @@
 #define _ENDPOINT_H_
 
 #include "identity.h"
-#include "rcmw/config/RoleAttributes.h"
+#include "config/RoleAttributes.h"
 #include <memory>
 
 namespace hnu       {
@@ -27,8 +27,8 @@ public:
     const RoleAttributes& attributes() const { return attr_; }
 protected:
     bool enabled_;
-    Identity id_;
     RoleAttributes attr_;
+    Identity id_;
 };
 
 } // transport

@@ -9,8 +9,8 @@
 #include <atomic>
 #include <memory>
 
-#include "rcmw/base/macros.h"
-#include "rcmw/base/for_each.h"
+#include "base/macros.h"
+#include "base/for_each.h"
 
 namespace hnu  {
 namespace rcmw {

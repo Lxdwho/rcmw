@@ -7,7 +7,7 @@
 #include <nlohmann/json.hpp>
 #include <vector>
 #include "conf_parse.h"
-#include "rcmw/logger/log.h"
+#include "logger/log.h"
 
 namespace hnu    {
 namespace rcmw   {

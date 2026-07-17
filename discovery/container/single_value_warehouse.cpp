@@ -3,8 +3,8 @@
  * @date 2025.12.16
  */
 
-#include "rcmw/discovery/container/single_value_warehouse.h"
-#include "rcmw/logger/log.h"
+#include "discovery/container/single_value_warehouse.h"
+#include "logger/log.h"
 
 namespace hnu       {
 namespace rcmw      {

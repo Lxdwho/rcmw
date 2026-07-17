@@ -6,7 +6,7 @@
 #ifndef _SCHEDULER_CONF_H_
 #define _SCHEDULER_CONF_H_
 
-#include "rcmw/config/classic_conf.h"
+#include "config/classic_conf.h"
 #include <string>
 #include <vector>
 #include <cstdint>

@@ -3,7 +3,7 @@
  * @date 2026.01.06
  */
 
-#include "rcmw/node/node.h"
+#include "node/node.h"
 
 namespace hnu   {
 namespace rcmw  {

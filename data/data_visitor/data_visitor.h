@@ -10,12 +10,12 @@
 #include <functional>
 #include <memory>
 #include <vector>
-#include "rcmw/data/data_visitor/data_visitor_base.h"
-#include "rcmw/data/data_fusion/all_latest.h"
-#include "rcmw/data/buffer/channel_buffer.h"
-#include "rcmw/data/data_dispatcher.h"
-#include "rcmw/common/types.h"
-#include "rcmw/logger/log.h"
+#include "data/data_visitor/data_visitor_base.h"
+#include "data/data_fusion/all_latest.h"
+#include "data/buffer/channel_buffer.h"
+#include "data/data_dispatcher.h"
+#include "common/types.h"
+#include "logger/log.h"
 
 namespace hnu   {
 namespace rcmw  {

@@ -12,7 +12,7 @@
 #include <type_traits>
 #include <typeinfo>
 #include <vector>
-#include "rcmw/common/types.h"
+#include "common/types.h"
 
 namespace hnu   {
 namespace rcmw  {

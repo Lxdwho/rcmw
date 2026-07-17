@@ -8,8 +8,8 @@
 
 #include "fastrtps/rtps/rtps_fwd.h"
 #include "fastrtps/rtps/reader/ReaderListener.h"
-#include "rcmw/transport/message/message_info.h"
-#include "rcmw/logger/log.h"
+#include "transport/message/message_info.h"
+#include "logger/log.h"
 #include <mutex>
 #include <memory>
 #include <functional>
@@ -44,8 +44,8 @@ public:
     }
 private:
     uint32_t n_matched;
-    std::string channel_name_;
     NewMsgCallback callback_;
+    std::string channel_name_;
     MessageInfo msg_info_;
     std::mutex mutex_;
 };

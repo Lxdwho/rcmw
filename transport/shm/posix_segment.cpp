@@ -4,7 +4,7 @@
  */
 
 #include "posix_segment.h"
-#include "rcmw/logger/log.h"
+#include "logger/log.h"
 #include <fcntl.h>
 #include <sys/mman.h>
 #include <unistd.h>

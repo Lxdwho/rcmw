@@ -9,12 +9,12 @@
 #include <memory>
 #include <mutex>
 #include <vector>
-#include "rcmw/data/buffer/channel_buffer.h"
-#include "rcmw/data/data_notifier.h"
-#include "rcmw/common/macros.h"
-#include "rcmw/logger/log.h"
-#include "rcmw/time/time.h"
-#include "rcmw/state.h"
+#include "data/buffer/channel_buffer.h"
+#include "data/data_notifier.h"
+#include "common/macros.h"
+#include "logger/log.h"
+#include "time/time.h"
+#include "state.h"
 
 namespace hnu   {
 namespace rcmw  {

@@ -10,12 +10,12 @@
 #include <memory>
 #include <string>
 #include <vector>
-#include "rcmw/config/RoleAttributes.h"
-#include "rcmw/common/macros.h"
-#include "rcmw/transport/transport.h"
-#include "rcmw/transport/receiver/receiver.h"
-#include "rcmw/data/data_dispatcher.h"
-#include "rcmw/event/perf_event_cache.h"
+#include "config/RoleAttributes.h"
+#include "common/macros.h"
+#include "transport/transport.h"
+#include "transport/receiver/receiver.h"
+#include "data/data_dispatcher.h"
+#include "event/perf_event_cache.h"
 
 namespace hnu   {
 namespace rcmw  {

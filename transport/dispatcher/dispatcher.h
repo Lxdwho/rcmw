@@ -8,13 +8,13 @@
 
 #include <atomic>
 #include <functional>
-#include "rcmw/config/RoleAttributes.h"
-#include "rcmw/base/atomic_hash_map.h"
-#include "rcmw/base/atomic_rw_lock.h"
-#include "rcmw/transport/message/message_info.h"
-#include "rcmw/transport/message/listener_handler.h"
-#include "rcmw/common/global_data.h"
-#include "rcmw/logger/log.h"
+#include "config/RoleAttributes.h"
+#include "base/atomic_hash_map.h"
+#include "base/atomic_rw_lock.h"
+#include "transport/message/message_info.h"
+#include "transport/message/listener_handler.h"
+#include "common/global_data.h"
+#include "logger/log.h"
 
 namespace hnu       {
 namespace rcmw      {

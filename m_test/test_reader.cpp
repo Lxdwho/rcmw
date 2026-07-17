@@ -1,11 +1,11 @@
-#include "rcmw/common/global_data.h"
-#include "rcmw/config/RoleAttributes.h"
-#include "rcmw/transport/dispatcher/rtps_dispatcher.h"
-#include "rcmw/common/util.h"
-#include "rcmw/transport/receiver/receiver.h"
-#include "rcmw/transport/transport.h"
-#include "rcmw/config/topology_change.h"
-#include "rcmw/logger/log.h"
+#include "common/global_data.h"
+#include "config/RoleAttributes.h"
+#include "transport/dispatcher/rtps_dispatcher.h"
+#include "common/util.h"
+#include "transport/receiver/receiver.h"
+#include "transport/transport.h"
+#include "config/topology_change.h"
+#include "logger/log.h"
 
 
 using namespace hnu::rcmw::transport;

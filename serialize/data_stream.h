@@ -17,7 +17,7 @@
 #include <string>
 #include <algorithm>
 #include <cstdint>
-#include "rcmw/serialize/serializable.h"
+#include "serialize/serializable.h"
 
 
 namespace hnu       {

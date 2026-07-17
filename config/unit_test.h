@@ -7,8 +7,8 @@
 #define _UNIT_TEST_H_
 
 #include <string>
-#include "rcmw/serialize/data_stream.h"
-#include "rcmw/serialize/serializable.h"
+#include "serialize/data_stream.h"
+#include "serialize/serializable.h"
 
 namespace hnu    {
 namespace rcmw   {

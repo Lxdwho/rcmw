@@ -4,8 +4,8 @@
  */
 
 #include "multicast_notifier.h"
-#include "rcmw/common/global_data.h"
-#include "rcmw/logger/log.h"
+#include "common/global_data.h"
+#include "logger/log.h"
 #include <string>
 #include <sys/socket.h>
 #include <arpa/inet.h>

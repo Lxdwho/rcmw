@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 #include <utility>
-#include "rcmw/node/node_channel_impl.h"
+#include "node/node_channel_impl.h"
 
 namespace hnu   {
 namespace rcmw  {

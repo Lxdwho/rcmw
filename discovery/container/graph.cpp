@@ -4,7 +4,7 @@
  */
 
 #include <queue>
-#include "rcmw/discovery/container/graph.h"
+#include "discovery/container/graph.h"
 
 namespace hnu       {
 namespace rcmw      {

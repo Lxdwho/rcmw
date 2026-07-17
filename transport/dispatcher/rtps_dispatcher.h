@@ -7,9 +7,9 @@
 #define _TRANSPORT_RTPS_DISPATCHER_H_
 
 #include "fastdds/rtps/rtps_fwd.h"
-#include "rcmw/transport/rtps/rea_listener.h"
+#include "transport/rtps/rea_listener.h"
 #include "dispatcher.h"
-#include "rcmw/transport/rtps/participant.h"
+#include "transport/rtps/participant.h"
 
 namespace hnu       {
 namespace rcmw      {

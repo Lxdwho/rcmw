@@ -12,9 +12,9 @@
 #include <vector>
 #include <type_traits>
 #include <functional>
-#include "rcmw/base/bounded_queue.h"
-#include "rcmw/common/macros.h"
-#include "rcmw/scheduler/scheduler_factory.h"
+#include "base/bounded_queue.h"
+#include "common/macros.h"
+#include "scheduler/scheduler_factory.h"
 
 namespace hnu   {
 namespace rcmw  {

@@ -6,8 +6,8 @@
 #ifndef _QOS_PROFILE_H_
 #define _QOS_PROFILE_H_
 
-#include "rcmw/serialize/serializable.h"
-#include "rcmw/serialize/data_stream.h"
+#include "serialize/serializable.h"
+#include "serialize/data_stream.h"
 
 namespace hnu    {
 namespace rcmw   {

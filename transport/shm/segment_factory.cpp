@@ -4,10 +4,10 @@
  */
 
 #include "segment_factory.h"
-#include "rcmw/common/global_data.h"
+#include "common/global_data.h"
 #include "posix_segment.h"
 #include "xsi_segment.h"
-#include "rcmw/logger/log.h"
+#include "logger/log.h"
 
 namespace hnu       {
 namespace rcmw      {
